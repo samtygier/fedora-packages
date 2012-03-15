@@ -190,4 +190,3 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 * Tue Dec  7 2010 Siddhesh Poyarekar <siddhesh@redhat.com> 2.32.0-3
 - Workaround concurrency issue with statusbar-date plugin
   (bz #602412, gnome bz #622161)
-
