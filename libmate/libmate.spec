@@ -235,3 +235,4 @@ fi
 
 * Sat Dec 24 2011 Wolfgang Ulbrich <info@raveit.de> - 1.1.2-1
 - libmate.spec based on libgnome-2.32.1-2.fc15.spec
+
