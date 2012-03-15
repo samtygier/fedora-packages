@@ -59,4 +59,3 @@ find $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
 
 * Sun Apr 25 2010 Brian Pepple <bpepple@fedoraproject.org> - 0.3.0-5
 - Removed clean section. No longer needed.
-
