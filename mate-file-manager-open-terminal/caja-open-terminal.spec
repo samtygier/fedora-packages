@@ -85,4 +85,3 @@ fi
 
 * Tue Feb 22 2011 Cosimo Cecchi <cosimoc@redhat.com> - 0.19-1
 - Update to 0.19
-
