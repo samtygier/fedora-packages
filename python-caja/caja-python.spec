@@ -32,7 +32,6 @@ Requires:       pkgconfig
 %description devel
 Python bindings for Caja
 
-
 %prep
 %setup -q
 NOCONFIGURE=1 ./autogen.sh
@@ -86,4 +85,3 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 - Remove BuildRoot tag and %%clean section
 - Own /usr/share/nautilus-python/extensions instead of the old arch
   dependent locations
-
