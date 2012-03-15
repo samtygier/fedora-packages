@@ -112,4 +112,3 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/matecomponent/servers
 
 * Mon Apr  4 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.1-1
 - Update to 2.32.1
-
