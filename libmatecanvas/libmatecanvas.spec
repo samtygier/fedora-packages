@@ -85,4 +85,3 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 * Mon Nov  7 2011 Matthias Clasen <mclasen@redhat.com> - 2.30.3-3
 - Rebuild against new libpng
-
