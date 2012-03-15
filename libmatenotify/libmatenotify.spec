@@ -89,4 +89,3 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a
 
 * Tue Aug 30 2011 Matthias Clasen <mclasen@redhat.com> - 0.7.4-1
 - Update to 0.7.4
-
