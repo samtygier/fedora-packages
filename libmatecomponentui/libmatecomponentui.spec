@@ -133,4 +133,3 @@ rm -rf $RPM_BUILD_ROOT
 
 * Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 2.24.5-2
 - Rebuild for new libpng
-
