@@ -277,4 +277,3 @@ gtk-update-icon-cache %{_datadir}/icons/mate >&/dev/null || :
 
 * Wed Sep 29 2010 Matthias Clasen <mclasen@redhat.com> - 2.32.0-1
 - Update to 2.32.0
-
