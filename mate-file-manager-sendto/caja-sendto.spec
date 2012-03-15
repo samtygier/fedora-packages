@@ -101,4 +101,3 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
 
 * Tue Sep 28 2010 Bastien Nocera <bnocera@redhat.com> 2.32.0-1
 - Update to 2.32.0
-
