@@ -1,0 +1,26 @@
+From 84103a1d29e66ede966874e4af4b17706605cd48 Mon Sep 17 00:00:00 2001
+From: Stef Walter <stefw@collabora.co.uk>
+Date: Thu, 10 Mar 2011 16:12:23 +0000
+Subject: This assertion is vulnerable to corner conditions.
+
+In particular if the operation completes one pending call, unrefs it
+and creates another pending call, and the memory allocator decides
+to allocate that same memory for the next pending call, then this
+will assert in a bogus way.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=660407
+---
+diff --git a/library/gkr-operation.c b/library/gkr-operation.c
+index 7600cd7..0fbba4d 100644
+--- a/library/gkr-operation.c
++++ b/library/gkr-operation.c
+@@ -404,7 +404,6 @@ gkr_operation_block_and_unref (GkrOperation *op)
+ 			if (op->pending == pending) {
+ 				g_return_val_if_fail (dbus_pending_call_get_completed (pending), BROKEN);
+ 				on_pending_call_notify (pending, op);
+-				g_assert (op->pending != pending);
+ 			}
+ 		} else if (op->prompting) {
+ 			dbus_connection_flush (op->conn);
+--
+cgit v0.8.3.4

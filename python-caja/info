@@ -1,0 +1,6 @@
+In fedora python-caja called caja-python!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to caja-python-<version>
+-- compress the new source to tar.xz
+-- build the rpm with caja-python.spec

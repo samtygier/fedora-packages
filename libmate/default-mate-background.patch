@@ -1,0 +1,38 @@
+--- libmate-1.1.3/schemas/desktop_mate_background.schemas.in.in	2012-01-26 14:46:16.000000000 +0100
++++ libmate-1.1.3/schemas/desktop_mate_background.schemas.in.in.default-background	2012-02-15 22:16:27.515008327 +0100
+@@ -16,7 +16,7 @@
+         <applyto>/desktop/mate/background/picture_options</applyto>
+         <owner>mate</owner>
+         <type>string</type>
+-        <default>zoom</default>
++        <default>stretched</default>
+         <locale name="C">
+         <short>Picture Options</short>
+         <long>Determines how the image set by wallpaper_filename is
+@@ -51,7 +51,7 @@
+         <applyto>/desktop/mate/background/primary_color</applyto>
+         <owner>mate</owner>
+         <type>string</type>
+-        <default>#335592</default>
++        <default>#224B68</default>
+         <locale name="C">
+         <short>Primary Color</short>
+         <long>Left or Top color when drawing gradients, or the solid color.</long>
+@@ -62,7 +62,7 @@
+         <applyto>/desktop/mate/background/secondary_color</applyto>
+         <owner>mate</owner>
+         <type>string</type>
+-        <default>#4367A5</default>
++        <default>#142C3D</default>
+         <locale name="C">
+         <short>Secondary Color</short>
+         <long>Right or Bottom color when drawing gradients, not used for solid color.</long>
+@@ -73,7 +73,7 @@
+         <applyto>/desktop/mate/background/color_shading_type</applyto>
+         <owner>mate</owner>
+         <type>string</type>
+-        <default>solid</default>
++        <default>vertical-gradient</default>
+         <locale name="C">
+         <short>Color Shading Type</short>
+         <long>How to shade the background color. Possible values are "horizontal-gradient", "vertical-gradient", and "solid".</long>

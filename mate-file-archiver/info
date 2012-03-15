@@ -1,0 +1,6 @@
+In fedora mate-file-archiver called engrampa!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to engrampa-<version>
+-- pack the new source to tar.xz
+-- build the rpm with engrampa.spec
