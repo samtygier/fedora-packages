@@ -2,10 +2,10 @@
 
 Summary: 	Shared code among gnome-panel, gnome-session, nautilus, etc
 Name: 		mate-desktop
-Version: 	1.1.0
-Release: 	3%{?dist}
-URL: 		https://github.com/mate-desktop/mate-desktop
-Source0: 	%{name}-%{version}.tar.gz
+Version: 	1.2.0
+Release: 	1%{?dist}
+URL: 		http://pub.mate-desktop.org
+Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
@@ -112,6 +112,9 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/omf/lgpl $RPM_BUILD_ROOT%{_datadir}/omf/mate
 
 
 %changelog
+* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+- update to 1.2.0
+
 * Sat Feb 18 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
 - rebuild for enable builds for .i686
 

@@ -6,12 +6,12 @@
 
 Summary: 	Framework for managing passwords and other secrets
 Name: 		mate-keyring
-Version: 	1.2.0
+Version: 	1.2.1
 Release: 	1%{?dist}
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
-Source: 	%{name}-%{version}.tar.gz
-URL: 		https://github.com/mate-desktop/mate-keyring
+Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+URL: 		http://pub.mate-desktop.org
 
 # http://bugzilla.redhat.com/529709
 # http://bugs.gnome.org/598494
@@ -145,6 +145,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 
 
 %changelog
+* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to version 1.2.1
+
 * Tue Feb 28 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 

@@ -1,12 +1,12 @@
 Name:           caja-sendto
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        Caja context menu for sending files
 
 Group:          User Interface/Desktops
 License:        GPLv2+
-URL:            https://github.com/mate-desktop/mate-file-manager-sendto
-Source0:        %{name}-%{version}.tar.gz
+URL:            http://pub.mate-desktop.org
+Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 BuildRequires:  gtk2-devel
 BuildRequires:  caja-devel >= 1.1.2
@@ -71,7 +71,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog ChangeLog.pre-1.1.4.1 COPYING NEWS
+%doc AUTHORS ChangeLog COPYING NEWS
 %{_libdir}/caja/extensions-2.0/libcaja-sendto.so
 %dir %{_libdir}/caja-sendto
 %dir %{_libdir}/caja-sendto/plugins
@@ -90,6 +90,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
 %{_includedir}/caja-sendto/caja-sendto-plugin.h
 
 %changelog
+* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+- update to 1.2.0
+
 * Fri Feb 25 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-3
 - correct scriplet error
 
@@ -101,3 +104,4 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas || :
 
 * Tue Sep 28 2010 Bastien Nocera <bnocera@redhat.com> 2.32.0-1
 - Update to 2.32.0
+

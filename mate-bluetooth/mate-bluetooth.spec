@@ -1,12 +1,12 @@
 Name:		mate-bluetooth
-Version:	1.1.0
-Release:	2%{?dist}
+Version:	1.2.0
+Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
 Group:		Applications/Communications
 License:	GPLv2+
-URL:		https://github.com/mate-desktop/mate-bluetooth
-Source0:	%{name}-%{version}.tar.gz
+URL:		http://pub.mate-desktop.org
+Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Source1:	61-mate-bluetooth-rfkill.rules
 
 BuildRequires:	mate-conf-devel
@@ -242,6 +242,9 @@ fi
 #%{_datadir}/mutter-moblin/panels/bluetooth-panel.desktop
 
 %changelog
+* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+- update to 1.2.0
+
 * Fri Feb 17 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-2
 - correct icon path for gtk-update-icon-cache command in spec file
 
