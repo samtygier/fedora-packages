@@ -70,3 +70,4 @@ rm -rf $RPM_BUILD_ROOT
 
 * Thu Jan 05 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
 - started building
+
