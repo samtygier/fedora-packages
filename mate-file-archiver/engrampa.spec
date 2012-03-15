@@ -128,4 +128,3 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 * Tue Sep 28 2010 Matthias Clasen <mclasen@redhat.com> 2.32.0-2
 - Fix a typo in %%post. Spotted by Yanko Kaneti
-
