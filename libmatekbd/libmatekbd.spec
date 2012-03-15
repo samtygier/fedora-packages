@@ -137,4 +137,3 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 * Wed Jan 04 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-1
 - libmatekbd.spec based on libgnomekbd-2.30.2-1.fc13 spec
-
