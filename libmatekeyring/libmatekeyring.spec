@@ -98,4 +98,3 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 * Fri Mar 11 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.0-2
 - Fix an invalid assert checking pending calls (#660407, #665761)
-
