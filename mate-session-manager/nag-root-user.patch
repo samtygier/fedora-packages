@@ -1,0 +1,154 @@
+diff -up mate-session-2.31.6/data/mate-session.schemas.in.in.nag-root-user mate-session-2.31.6/data/mate-session.schemas.in.in
+--- mate-session-2.31.6/data/mate-session.schemas.in.in.nag-root-user	2010-08-06 20:18:36.000000000 -0400
++++ mate-session-2.31.6/data/mate-session.schemas.in.in	2010-08-06 20:24:53.215048000 -0400
+@@ -3,6 +3,17 @@
+    <schemalist>
+ 
+       <schema>
++         <key>/schemas/apps/mate-session/options/show_root_warning</key>
++         <applyto>/apps/mate-session/options/show_root_warning</applyto>
++         <owner>mate</owner>
++         <type>bool</type>
++         <default>true</default>
++         <locale name="C">
++            <short>Warn user against running mate-session from root account</short>
++            <long>If a user tries to login as root, show a dialog telling them it's a bad idea</long>
++         </locale>
++      </schema>
++      <schema>
+          <key>/schemas/apps/mate-session/options/auto_save_session</key>
+          <applyto>/apps/mate-session/options/auto_save_session</applyto>
+          <owner>mate</owner>
+diff -up mate-session-2.31.6/mate-session/gsm-manager.c.nag-root-user mate-session-2.31.6/mate-session/gsm-manager.c
+--- mate-session-2.31.6/mate-session/gsm-manager.c.nag-root-user	2010-08-06 20:18:36.308048001 -0400
++++ mate-session-2.31.6/mate-session/gsm-manager.c	2010-08-06 20:18:36.333048001 -0400
+@@ -92,6 +92,8 @@
+ 
+ #define KEY_SLEEP_LOCK            "/apps/mate-screensaver/lock_enabled"
+ 
++#define KEY_SHOW_ROOT_WARNING     "/apps/mate-session/options/show_root_warning"
++
+ #define IS_STRING_EMPTY(x) ((x)==NULL||(x)[0]=='\0')
+ 
+ typedef enum
+@@ -492,6 +494,26 @@ end_phase (GsmManager *manager)
+                 manager->priv->phase_timeout_id = 0;
+         }
+ 
++        /* If we just finished the phase before the phase where applications
++         * are started, then nag the user if they're root.  We could do it earlier,
++         * but that would mean showing a bare dialog with nothing around it
++         * (and potentially without decorations, font settings loaded, etc).  We
++         * could do it later, but that would be mean things loading around it and
++         * covering it up, etc.
++         */
++        if (manager->priv->phase + 1 == GSM_MANAGER_PHASE_APPLICATION) {
++                if (getuid () == 0) {
++                        gsm_util_nag_message (KEY_SHOW_ROOT_WARNING, FALSE,
++                                              _("You are currently trying to run as the "
++                                                "root super user.  The super user is a "
++                                                "specialized account that is not designed "
++                                                "to run a normal user session.  Various programs "
++                                                "will not function properly, and actions "
++                                                "performed under this account can cause unrecoverable "
++                                                "damage to the operating system."));
++                }
++        }
++
+         switch (manager->priv->phase) {
+         case GSM_MANAGER_PHASE_STARTUP:
+         case GSM_MANAGER_PHASE_INITIALIZATION:
+diff -up mate-session-2.31.6/mate-session/gsm-util.c.nag-root-user mate-session-2.31.6/mate-session/gsm-util.c
+--- mate-session-2.31.6/mate-session/gsm-util.c.nag-root-user	2010-02-09 08:22:01.000000000 -0500
++++ mate-session-2.31.6/mate-session/gsm-util.c	2010-08-06 20:18:36.338048001 -0400
+@@ -35,6 +35,7 @@
+ #include <dbus/dbus-glib.h>
+ 
+ #include "gsm-util.h"
++#include "gsm-mateconf.h"
+ 
+ static gchar *_saved_session_dir = NULL;
+ 
+@@ -373,6 +374,69 @@ gsm_util_init_error (gboolean    fatal,
+ }
+ 
+ /**
++ * gsm_util_nag_message:
++ * @key: mateconf configuration key to save user's "don't nag me" state
++ * @nag_only_once: Initial state of the "don't nag me" checkbox
++ * @format: printf-style error message format
++ * @...: error message args
++ *
++ * Displays a nag message to the user along with a check button that says something
++ * like "Don't show this again". If @nag_only_once is %TRUE, the check button will
++ * default to checked.  The state of the dialog is stored as a boolean at the
++ * mateconf path specified by @key
++ *
++ * This should be called for informative messages that the user may or may
++ * not care about.
++ **/
++void
++gsm_util_nag_message (const char *key,
++                      gboolean    nag_only_once,
++                      const char *format, ...)
++{
++        GtkWidget *dialog;
++        GtkWidget *content_area;
++        GtkWidget *check_button;
++        char      *msg;
++        va_list    args;
++        MateConfClient *client;
++        gboolean should_nag;
++
++        client = mateconf_client_get_default ();
++        should_nag = mateconf_client_get_bool (client, key, NULL);
++
++        if (!should_nag) {
++                goto out;
++        }
++
++        va_start (args, format);
++        msg = g_strdup_vprintf (format, args);
++        va_end (args);
++
++        dialog = gtk_message_dialog_new (NULL, 0, GTK_MESSAGE_ERROR,
++                                         GTK_BUTTONS_CLOSE, "%s", msg);
++
++        g_free (msg);
++
++        content_area = gtk_dialog_get_content_area (GTK_DIALOG (dialog));
++        check_button = gtk_check_button_new_with_label (_("Do not show me this again"));
++
++        gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (check_button), nag_only_once != FALSE);
++        gtk_widget_show (check_button);
++
++        gtk_container_add (GTK_CONTAINER (content_area), check_button);
++
++        gtk_window_set_position (GTK_WINDOW (dialog), GTK_WIN_POS_CENTER);
++        gtk_dialog_run (GTK_DIALOG (dialog));
++
++        should_nag = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (check_button)) == FALSE;
++        mateconf_client_set_bool (client, key, should_nag != FALSE, NULL);
++        gtk_widget_destroy (dialog);
++
++out:
++        g_object_unref (client);
++}
++
++/**
+  * gsm_util_generate_startup_id:
+  *
+  * Generates a new SM client ID.
+diff -up mate-session-2.31.6/mate-session/gsm-util.h.nag-root-user mate-session-2.31.6/mate-session/gsm-util.h
+--- mate-session-2.31.6/mate-session/gsm-util.h.nag-root-user	2010-02-09 08:22:01.000000000 -0500
++++ mate-session-2.31.6/mate-session/gsm-util.h	2010-08-06 20:18:36.340048001 -0400
+@@ -41,6 +41,9 @@ gboolean    gsm_util_text_is_blank      
+ 
+ void        gsm_util_init_error                     (gboolean    fatal,
+                                                      const char *format, ...);
++void        gsm_util_nag_message                    (const char *key,
++                                                     gboolean    nag_only_once,
++                                                     const char *format, ...);
+ 
+ char *      gsm_util_generate_startup_id            (void);
+ 

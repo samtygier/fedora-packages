@@ -1,0 +1,22 @@
+diff -up mate-panel-1.1.1/applets/clock/clock-location.c.network mate-panel-1.1.1/applets/clock/clock-location.c
+--- mate-panel-1.1.1/applets/clock/clock-location.c.network	2009-04-15 17:28:26.760634154 -0400
++++ mate-panel-1.1.1/applets/clock/clock-location.c	2009-04-15 17:43:41.869383882 -0400
+@@ -12,6 +12,9 @@
+ #include <time.h>
+ #include <unistd.h>
+ #include <math.h>
++#include <netinet/in.h>
++#include <arpa/nameser.h>
++#include <resolv.h>
+ 
+ #include <glib.h>
+ #include <gio/gio.h>
+@@ -695,6 +698,8 @@ state_notify (DBusPendingCall *pending, 
+ 					   DBUS_TYPE_UINT32, &result,
+ 					   DBUS_TYPE_INVALID)) {
+ 			if (result == NM_STATE_CONNECTED) {
++				/* thank you, glibc */
++				res_init ();
+ 				update_weather_infos ();
+ 			}
+ 		}

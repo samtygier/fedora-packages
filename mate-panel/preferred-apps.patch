@@ -1,0 +1,220 @@
+diff -up mate-panel-2.25.3/mate-panel/launcher.c.preferred-apps mate-panel-2.25.3/mate-panel/launcher.c
+--- mate-panel-2.25.3/mate-panel/launcher.c.preferred-apps	2009-01-16 14:15:17.000000000 -0500
++++ mate-panel-2.25.3/mate-panel/launcher.c	2009-01-16 14:24:06.000000000 -0500
+@@ -21,6 +21,7 @@
+ #include <glib/gi18n.h>
+ #include <gio/gio.h>
+ #include <gdk/gdkx.h>
++#include <matemenu-tree.h>
+ 
+ #include <libpanel-util/panel-error.h>
+ #include <libpanel-util/panel-glib.h>
+@@ -44,6 +45,7 @@
+ #include "panel-compatibility.h"
+ #include "panel-ditem-editor.h"
+ #include "panel-icon-names.h"
++#include "panel-run-dialog.h"
+ 
+ static GdkScreen *
+ launcher_get_screen (Launcher *launcher)
+@@ -1215,3 +1217,189 @@ panel_launcher_set_dnd_enabled (Launcher
+ 	} else
+ 		gtk_drag_source_unset (launcher->button);
+ }
++
++static gchar *
++find_desktop_file_from_exec (const gchar *exec)
++{
++	GSList *all_applications, *l;
++	gchar *path = NULL;
++	gchar **tokens, **tokens2;
++	gint i, match = 0;
++
++	/* FIXME no need to construct a humongous list here */
++	all_applications = get_all_applications ();
++
++	for (l = all_applications; l; l = l->next) {
++		MateMenuTreeEntry *entry = l->data;
++		const char     *entry_exec;
++
++		entry_exec = matemenu_tree_entry_get_exec (entry);
++
++		if (strcmp (exec, entry_exec) == 0) {
++			path = matemenu_tree_entry_get_desktop_file_path (entry);
++			break;
++		}
++
++		tokens = g_strsplit (exec, " ", -1);
++		tokens2 = g_strsplit (entry_exec, " ", -1);
++
++		for (i = 0; tokens[i] && tokens2[i]; i++) {
++			if (strcmp (tokens[i], tokens2[i]) != 0)
++				break;
++		}
++		if (i > match) {
++			match = i;
++			path = matemenu_tree_entry_get_desktop_file_path (entry);
++		}
++
++		g_strfreev (tokens);
++		g_strfreev (tokens2);
++	}
++
++	path = g_strdup (path);
++	g_slist_free (all_applications);
++
++	return path;
++}
++
++static void
++update_preferred_app (const gchar *filename,
++		      const gchar *key,
++		      const gchar *exec)
++{
++	gchar *location;
++	GKeyFile *key_file;
++	GError *error = NULL;
++	gchar *data;
++	gsize len;
++	gboolean needs_terminal;
++
++	location = find_desktop_file_from_exec (exec);
++	key_file = g_key_file_new ();
++	if (!panel_key_file_load_from_uri (key_file, location,
++				   	   G_KEY_FILE_KEEP_COMMENTS|G_KEY_FILE_KEEP_TRANSLATIONS,
++					   NULL)) {
++		/* FIXME would be much better if preferred apps were backed by desktop files */
++		g_key_file_set_string (key_file, "Desktop Entry", "Version", "1.0");
++		g_key_file_set_string (key_file, "Desktop Entry", "Encoding", "UTF-8");
++		g_key_file_set_string (key_file, "Desktop Entry", "Type", "Application");
++		g_key_file_set_string (key_file, "Desktop Entry", "Exec", exec);
++		if (strstr (key, "http")) {
++			g_key_file_set_string (key_file, "Desktop Entry", "Name", "Preferred Web Browser");
++			g_key_file_set_string (key_file, "Desktop Entry", "GenericName", "Web Browser");
++			g_key_file_set_string (key_file, "Desktop Entry", "Comment", "Browse the Web");
++			g_key_file_set_string (key_file, "Desktop Entry", "Icon", "redhat-web-browser.png");
++			if (strstr (exec, "%s")) {
++				gchar *exec2, *s;
++
++				exec2 = g_strdup (exec);
++				s = strstr (exec2, "%s");
++				s[1] = 'u';
++
++				g_key_file_set_string (key_file, "Desktop Entry", "Exec", exec2);
++				g_free (exec2);
++				
++			}
++		}
++		else if (strstr (key, "mailto")) {
++			g_key_file_set_string (key_file, "Desktop Entry", "Name", "Preferred Mail Reader");
++			g_key_file_set_string (key_file, "Desktop Entry", "GenericName", "Mail Reader");
++			g_key_file_set_string (key_file, "Desktop Entry", "Comment", "Send email");
++			g_key_file_set_string (key_file, "Desktop Entry", "Icon", "redhat-email.png");
++		}
++		if (g_str_has_suffix (key, "command")) {
++			int len;
++			char *key2;
++
++			len = strlen (key);
++			key2 = g_new (char, len - strlen ("command") + strlen ("needs_terminal") + 1);
++			strncpy (key2, key,  len - strlen ("command"));
++			strcpy (key2 + len - strlen ("command"), "needs_terminal");
++			needs_terminal = mateconf_client_get_bool (panel_mateconf_get_client (),
++								key2,
++								NULL);
++			g_free (key2);
++		}
++		else
++			needs_terminal = FALSE;
++		g_key_file_set_boolean (key_file, "Desktop Entry", "Terminal", needs_terminal);
++	}
++
++	g_free (location);
++
++	g_key_file_set_boolean (key_file, "Desktop Entry", "X-Panel-Monitor", TRUE);
++	g_key_file_set_boolean (key_file, "Desktop Entry", "NoDisplay", TRUE);
++
++	data = g_key_file_to_data (key_file, &len, &error);
++	if (error) {
++		g_printerr (_("Failed to convert data for '%s': %s"), 
++			    filename, error->message);
++		g_error_free (error);
++		g_key_file_free (key_file);
++
++		return; 
++	}
++	if (!g_file_set_contents (filename, data, len, &error)) {
++		g_printerr (_("Failed to save '%s': %s"), 
++			    filename, error->message);
++		g_error_free (error);
++	}
++
++	g_key_file_free (key_file);
++	g_free (data);
++}
++
++static void
++preferred_app_changed (MateConfClient *client,
++		       gint         notify_id,
++		       MateConfEntry  *entry,
++		       const gchar  *filename)
++{
++	update_preferred_app (filename, 
++	mateconf_entry_get_key (entry), 
++	mateconf_value_get_string (entry->value));
++}
++
++void
++panel_preferred_apps_init (void)
++{
++	MateConfClient *client;
++        gchar *dirname, *filename, *exec;
++	gint i;
++
++	const gchar *keys[] = {
++		"/desktop/mate/url-handlers/http/command",
++		"/desktop/mate/url-handlers/mailto/command", 
++		NULL };
++	const gchar *files[] = {
++		"preferred-web-browser.desktop",
++		"preferred-mail-reader.desktop",
++		NULL }; 
++
++	client = panel_mateconf_get_client ();
++
++	mateconf_client_add_dir (client,
++			      "/desktop/mate/url-handlers",
++			      MATECONF_CLIENT_PRELOAD_NONE,
++			      NULL);
++
++	for (i = 0; keys[i]; i++) {
++                dirname = g_build_filename (g_get_user_data_dir (), 
++					    "applications", NULL);
++		filename = g_build_filename (dirname, files[i], NULL);
++		if (!g_file_test (filename, G_FILE_TEST_EXISTS)) {
++                        
++                        if (!g_file_test (dirname, G_FILE_TEST_EXISTS))
++                            g_mkdir_with_parents (dirname, 0755);
++
++			exec = mateconf_client_get_string (client, keys[i], NULL);
++			update_preferred_app (filename, keys[i], exec);
++			g_free (exec);
++		}
++                g_free (dirname);
++
++		mateconf_client_notify_add (client, keys[i],
++					 (MateConfClientNotifyFunc) preferred_app_changed,
++					 filename, g_free, NULL);
++	}
++}
+diff -up mate-panel-2.25.3/mate-panel/main.c.preferred-apps mate-panel-2.25.3/mate-panel/main.c
+--- mate-panel-2.25.3/mate-panel/main.c.preferred-apps	2008-12-09 07:32:37.000000000 -0500
++++ mate-panel-2.25.3/mate-panel/main.c	2009-01-16 14:15:17.000000000 -0500
+@@ -86,6 +87,7 @@ main (int argc, char **argv)
+ 			      MATECONF_CLIENT_PRELOAD_NONE,
+ 			      NULL);
+ 
++	panel_preferred_apps_init ();
+ 	panel_global_config_load ();
+ 	panel_lockdown_init ();
+ 	panel_profile_load ();

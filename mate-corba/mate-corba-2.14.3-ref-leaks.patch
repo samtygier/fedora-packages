@@ -1,0 +1,52 @@
+diff -up mate-corba-ebd4a9b/src/orb/orb-core/matecorba-object.c.ref-leaks mate-corba-ebd4a9b/src/orb/orb-core/matecorba-object.c
+--- mate-corba-ebd4a9b/src/orb/orb-core/matecorba-object.c.ref-leaks	2011-11-13 19:07:27.000000000 -0800
++++ mate-corba-ebd4a9b/src/orb/orb-core/matecorba-object.c	2011-11-13 19:11:47.000000000 -0800
+@@ -115,16 +115,22 @@ MateCORBA_RootObject_init (MateCORBA_Roo
+ 	obj->refs = 0;
+ }
+ 
++#define MATECORBA_REFCOUNT_IMMORTAL (MATECORBA_REFCOUNT_MAX / 2)
++
+ gpointer
+ MateCORBA_RootObject_duplicate (gpointer obj)
+ {
+ 	MateCORBA_RootObject robj = obj;
+ 
+-	if (robj && robj->refs != MATECORBA_REFCOUNT_STATIC) {
++	if (robj && robj->refs != MATECORBA_REFCOUNT_STATIC &&
++	    robj->refs != MATECORBA_REFCOUNT_IMMORTAL) {
+ 		LINK_MUTEX_LOCK   (MateCORBA_RootObject_lifecycle_lock);
+ 		robj->refs++;
+ 		total_refs++;
+ 		LINK_MUTEX_UNLOCK (MateCORBA_RootObject_lifecycle_lock);
++		if (robj->refs == MATECORBA_REFCOUNT_IMMORTAL)
++			g_warning ("ORB: MateCORBA_RootObject %p became immortal"
++				   " - reference leaks present", robj);
+ 	}
+ 
+ 	return obj;
+@@ -135,9 +141,13 @@ MateCORBA_RootObject_duplicate_T (gpoint
+ {
+ 	MateCORBA_RootObject robj = obj;
+ 
+-	if (robj && robj->refs != MATECORBA_REFCOUNT_STATIC) {
++	if (robj && robj->refs != MATECORBA_REFCOUNT_STATIC &&
++	    robj->refs != MATECORBA_REFCOUNT_IMMORTAL) {
+ 		robj->refs++;
+ 		total_refs++;
++		if (robj->refs == MATECORBA_REFCOUNT_IMMORTAL)
++			g_warning ("ORB: MateCORBA_RootObject %p became immortal"
++				   " - reference leaks present", robj);
+ 	}
+ 
+ 	return obj;
+@@ -148,6 +158,9 @@ do_unref (MateCORBA_RootObject robj)
+ {
+ 	g_assert (robj->refs < MATECORBA_REFCOUNT_MAX && robj->refs > 0);
+ 
++	if (robj->refs == MATECORBA_REFCOUNT_IMMORTAL)
++		return;
++
+ 	robj->refs--;
+ 	total_refs--;
+ 

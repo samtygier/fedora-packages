@@ -1,0 +1,11 @@
+diff -up mate-menus-1.1.1/layout/mate-applications.menu.other-docs mate-menus-1.1.1/layout/mate-applications.menu
+--- mate-menus-1.1.1/layout/mate-applications.menu.other-docs	2010-04-07 16:04:38.790906347 -0400
++++ mate-menus-1.1.1/layout/mate-applications.menu	2010-04-07 16:15:58.490739146 -0400
+@@ -147,6 +147,7 @@
+         <Not><Category>Core</Category></Not>
+         <Not><Category>Settings</Category></Not>
+         <Not><Category>Screensaver</Category></Not>
++        <Not><Category>Documentation</Category></Not>
+       </And>
+     </Include>
+   </Menu> <!-- End Other -->

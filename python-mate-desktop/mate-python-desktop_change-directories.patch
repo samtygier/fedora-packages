@@ -1,0 +1,50 @@
+diff -upr mate-python2-desktop-1.1.0-orig/gtop/Makefile.am mate-python2-desktop-1.1.0/gtop/Makefile.am
+--- mate-python2-desktop-1.1.0-orig/gtop/Makefile.am	2011-12-12 15:05:00.000000000 +0100
++++ mate-python2-desktop-1.1.0/gtop/Makefile.am	2012-02-20 18:03:43.000000000 +0100
+@@ -1,8 +1,8 @@
+ 
+ INCLUDES = $(PYTHON_INCLUDES) $(GTOP_CFLAGS)
+ 
+-pkgpythondir = $(pyexecdir)/gtk-2.0
+-pkgpyexecdir = $(pyexecdir)/gtk-2.0
++pkgpythondir = $(pyexecdir)/gtk-2.0/mate
++pkgpyexecdir = $(pyexecdir)/gtk-2.0/mate
+ 
+ # gtop module
+ pkgpyexec_LTLIBRARIES = gtop.la
+diff -upr mate-python2-desktop-1.1.0-orig/rsvg/Makefile.am mate-python2-desktop-1.1.0/rsvg/Makefile.am
+--- mate-python2-desktop-1.1.0-orig/rsvg/Makefile.am	2011-12-12 15:05:00.000000000 +0100
++++ mate-python2-desktop-1.1.0/rsvg/Makefile.am	2012-02-20 18:10:19.000000000 +0100
+@@ -4,8 +4,8 @@ INCLUDES = $(PYTHON_INCLUDES) $(RSVG_CFL
+ 
+ EXTRA_DIST = rsvg.defs rsvg.override
+ 
+-pkgpythondir = $(pyexecdir)/gtk-2.0
+-pkgpyexecdir = $(pyexecdir)/gtk-2.0
++pkgpythondir = $(pyexecdir)/gtk-2.0/mate
++pkgpyexecdir = $(pyexecdir)/gtk-2.0/mate
+ 
+ # rsvg module
+ pkgpyexec_LTLIBRARIES = rsvg.la
+diff -upr mate-python2-desktop-1.1.0-orig/wnck/Makefile.am mate-python2-desktop-1.1.0/wnck/Makefile.am
+--- mate-python2-desktop-1.1.0-orig/wnck/Makefile.am	2011-12-12 15:05:00.000000000 +0100
++++ mate-python2-desktop-1.1.0/wnck/Makefile.am	2012-02-20 18:29:04.000000000 +0100
+@@ -1,6 +1,6 @@
+ INCLUDES = $(PYTHON_INCLUDES) $(PYGTK_CFLAGS)
+ 
+-defsdir = $(datadir)/pygtk/2.0/defs
++defsdir = $(datadir)/pygtk/2.0/defs/mate
+ 
+ defs_DATA = wnck.defs
+ 
+@@ -8,8 +8,8 @@ EXTRA_DIST = $(defs_DATA)
+ 
+ common_ldflags = -module -avoid-version
+ 
+-pkgpythondir = $(pyexecdir)/gtk-2.0
+-pkgpyexecdir = $(pyexecdir)/gtk-2.0
++pkgpythondir = $(pyexecdir)/gtk-2.0/mate
++pkgpyexecdir = $(pyexecdir)/gtk-2.0/mate
+ 
+ # wnck binding
+ 

@@ -1,0 +1,104 @@
+diff -up mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.c.search mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.c
+--- mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.c.search	2009-04-19 13:45:09.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.c	2009-08-25 11:33:36.666288948 -0400
+@@ -29,6 +29,8 @@
+ #include <gdk/gdk.h>
+ #include <gtk/gtk.h>
+ 
++#include <libmate/mate-desktop-item.h>
++
+ #include "panel-error.h"
+ #include "panel-glib.h"
+ 
+@@ -201,6 +203,23 @@ panel_launch_desktop_file (const char  *
+ }
+ 
+ gboolean
++panel_has_desktop_file (const char  *desktop_file)
++{
++	MateDesktopItem *ditem;
++
++	if (g_path_is_absolute (desktop_file))
++		ditem = mate_desktop_item_new_from_file (desktop_file, 0, NULL);
++	else
++		ditem = mate_desktop_item_new_from_basename (desktop_file, 0, NULL);
++	if (ditem != NULL) {
++		mate_desktop_item_unref (ditem);
++		return TRUE;
++	}
++
++	return FALSE;	
++}
++
++gboolean
+ panel_launch_desktop_file_with_fallback (const char  *desktop_file,
+ 					 const char  *fallback_exec,
+ 					 GdkScreen   *screen,
+diff -up mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.h.search mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.h
+--- mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.h.search	2009-04-19 13:45:09.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/libpanel-util/panel-launch.h	2009-08-25 11:33:36.667276923 -0400
+@@ -47,6 +47,8 @@ gboolean panel_launch_key_file (GKeyFile
+ 				GdkScreen  *screen,
+ 				GError    **error);
+ 
++gboolean panel_has_desktop_file (const char *desktop_file);
++
+ gboolean panel_launch_desktop_file (const char  *desktop_file,
+ 				    GdkScreen   *screen,
+ 				    GError     **error);
+diff -up mate-panel-1.1.1/mate-panel/panel-action-button.c.search mate-panel-1.1.1/mate-panel/panel-action-button.c
+--- mate-panel-1.1.1/mate-panel/panel-action-button.c.search	2009-04-19 13:45:09.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-action-button.c	2009-08-25 11:33:36.671290074 -0400
+@@ -219,9 +219,19 @@ panel_action_search (GtkWidget *widget)
+ 	GdkScreen *screen;
+ 
+ 	screen = gtk_widget_get_screen (widget);
+-	panel_launch_desktop_file_with_fallback ("mate-search-tool.desktop",
+-						 "mate-search-tool",
+-						 screen, NULL);
++	if (panel_has_desktop_file ("mate-beagle-search.desktop")) {
++		panel_launch_desktop_file ("mate-beagle-search.desktop",
++					   screen,
++					   NULL);
++	} else if (panel_has_desktop_file ("fedora-tracker-search-tool.desktop")) {
++		panel_launch_desktop_file ("fedora-tracker-search-tool.desktop",
++					   screen,
++					   NULL);
++	} else {
++		panel_launch_desktop_file ("mate-search-tool.desktop",
++					   screen,
++					   NULL);
++	}
+ }
+ 
+ /* Force Quit
+diff -up mate-panel-1.1.1/mate-panel/panel-menu-items.c.search mate-panel-1.1.1/mate-panel/panel-menu-items.c
+--- mate-panel-1.1.1/mate-panel/panel-menu-items.c.search	2009-08-25 11:33:36.643267021 -0400
++++ mate-panel-1.1.1/mate-panel/panel-menu-items.c	2009-08-25 11:42:41.517027329 -0400
+@@ -1062,10 +1062,22 @@ panel_place_menu_item_create_menu (Panel
+ 
+ 	add_menu_separator (places_menu);
+ 
+-	panel_menu_items_append_from_desktop (places_menu,
+-					      "mate-search-tool.desktop",
+-					      NULL,
+-                                              FALSE);
++	if (panel_has_desktop_file ("mate-beagle-search.desktop")) {
++		panel_menu_items_append_from_desktop (places_menu,
++						      "mate-beagle-search.desktop",
++						      NULL,
++						      FALSE);
++	} else if (panel_has_desktop_file ("fedora-tracker-search-tool.desktop")) {
++		panel_menu_items_append_from_desktop (places_menu,
++						      "fedora-tracker-search-tool.desktop",
++						      NULL,
++						      FALSE);
++	} else {
++		panel_menu_items_append_from_desktop (places_menu,
++						      "mate-search-tool.desktop",
++						      NULL,
++						      FALSE);
++	}
+ 
+ 	panel_recent_append_documents_menu (places_menu,
+ 					    place_item->priv->recent_manager);

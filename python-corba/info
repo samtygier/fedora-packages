@@ -1,0 +1,6 @@
+In fedora python-corba called pymatecorba!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to pymatecorba-<version>
+-- compress the new source to tar.xz
+-- build the rpm with pymatecorba.spec

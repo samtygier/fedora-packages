@@ -1,0 +1,12 @@
+diff -up mate-settings-daemon-2.31.91/plugins/xrandr/msd-xrandr-manager.c.capplet mate-settings-daemon-2.31.91/plugins/xrandr/msd-xrandr-manager.c
+--- mate-settings-daemon-2.31.91/plugins/xrandr/msd-xrandr-manager.c.capplet	2010-09-01 14:25:51.121940001 -0400
++++ mate-settings-daemon-2.31.91/plugins/xrandr/msd-xrandr-manager.c	2010-09-01 14:26:06.346940001 -0400
+@@ -76,7 +76,7 @@
+ #define MSD_XRANDR_ICON_NAME "msd-xrandr"
+ 
+ /* executable of the control center's display configuration capplet */
+-#define MSD_XRANDR_DISPLAY_CAPPLET "mate-control-center display"
++#define MSD_XRANDR_DISPLAY_CAPPLET "mate-display-properties"
+ 
+ #define MSD_DBUS_PATH "/org/mate/SettingsDaemon"
+ #define MSD_DBUS_NAME "org.mate.SettingsDaemon"

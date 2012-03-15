@@ -1,0 +1,343 @@
+diff -up mate-panel-1.1.1/mate-panel/panel-profile.c.panel-padding mate-panel-1.1.1/mate-panel/panel-profile.c
+--- mate-panel-1.1.1/mate-panel/panel-profile.c.panel-padding	2009-09-21 12:29:33.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-profile.c	2009-10-29 09:57:25.285484907 -0400
+@@ -638,6 +638,7 @@ TOPLEVEL_IS_WRITABLE_FUNC ("orientation"
+ 
+ TOPLEVEL_GET_SET_FUNCS ("size",               toplevel,   int,  size,           int)
+ TOPLEVEL_GET_SET_FUNCS ("expand",             toplevel,   bool, expand,         gboolean)
++TOPLEVEL_GET_SET_FUNCS ("padding",            toplevel,   int,  padding,           int)
+ TOPLEVEL_GET_SET_FUNCS ("auto_hide",          toplevel,   bool, auto_hide,      gboolean)
+ TOPLEVEL_GET_SET_FUNCS ("enable_buttons",     toplevel,   bool, enable_buttons, gboolean)
+ TOPLEVEL_GET_SET_FUNCS ("enable_arrows",      toplevel,   bool, enable_arrows,  gboolean)
+@@ -1185,6 +1186,7 @@ panel_profile_toplevel_change_notify (GC
+ 	else UPDATE_INT ("monitor", monitor)
+ 	else UPDATE_STRING ("name", name)
+ 	else UPDATE_BOOL ("expand", expand)
++	else UPDATE_INT ("padding", padding)
+ 	else UPDATE_STRING ("orientation", orientation)
+ 	else UPDATE_INT ("size", size)
+ 	else UPDATE_POS ("x", x, x_right)
+@@ -1706,6 +1708,7 @@ panel_profile_load_toplevel (GConfClient
+ 	GET_STRING ("name", name);
+ 	GET_INT ("monitor", monitor);
+ 	GET_BOOL ("expand", expand);
++	GET_INT ("padding", padding);
+ 	GET_STRING ("orientation", orientation);
+ 	GET_INT ("size", size);
+ 	GET_BOOL ("auto_hide", auto_hide);
+diff -up mate-panel-1.1.1/mate-panel/panel-profile.h.panel-padding mate-panel-1.1.1/mate-panel/panel-profile.h
+--- mate-panel-1.1.1/mate-panel/panel-profile.h.panel-padding	2009-04-19 13:45:09.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-profile.h	2009-10-29 09:57:25.285484907 -0400
+@@ -92,7 +92,10 @@ void        panel_profile_set_toplevel_e
+ 						       gboolean       expand);
+ gboolean    panel_profile_get_toplevel_expand         (PanelToplevel *toplevel);
+ gboolean    panel_profile_is_writable_toplevel_expand (PanelToplevel *toplevel);
+-
++void        panel_profile_set_toplevel_padding        (PanelToplevel *toplevel,
++                                                       int            padding);
++int         panel_profile_get_toplevel_padding        (PanelToplevel *padding);
++gboolean    panel_profile_is_writable_toplevel_padding (PanelToplevel *toplevel);
+ void        panel_profile_set_toplevel_auto_hide      (PanelToplevel *toplevel,
+ 						       gboolean       auto_hide);
+ gboolean    panel_profile_get_toplevel_auto_hide      (PanelToplevel *toplevel);
+diff -up mate-panel-1.1.1/mate-panel/panel-toplevel.c.panel-padding mate-panel-1.1.1/mate-panel/panel-toplevel.c
+--- mate-panel-1.1.1/mate-panel/panel-toplevel.c.panel-padding	2009-08-21 06:31:49.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-toplevel.c	2009-10-29 09:57:25.287500667 -0400
+@@ -79,6 +79,7 @@ struct _PanelToplevelPrivate {
+ 	gboolean                expand;
+ 	PanelOrientation        orientation;
+ 	int                     size;
++        int                     padding;
+ 
+ 	/* relative to the monitor origin */
+ 	int                     x;
+@@ -213,6 +214,7 @@ enum {
+ 	PROP_0,
+ 	PROP_NAME,
+ 	PROP_EXPAND,
++        PROP_PADDING,
+ 	PROP_ORIENTATION,
+ 	PROP_SIZE,
+ 	PROP_X,
+@@ -3862,6 +3864,9 @@ panel_toplevel_set_property (GObject    
+ 	case PROP_EXPAND:
+ 		panel_toplevel_set_expand (toplevel, g_value_get_boolean (value));
+ 		break;
++	case PROP_PADDING:
++		panel_toplevel_set_padding (toplevel, g_value_get_int (value));
++		break;
+ 	case PROP_ORIENTATION:
+ 		panel_toplevel_set_orientation (toplevel, g_value_get_enum (value));
+ 		break;
+@@ -3956,6 +3961,9 @@ panel_toplevel_get_property (GObject    
+ 	case PROP_EXPAND:
+ 		g_value_set_boolean (value, toplevel->priv->expand);
+ 		break;
++	case PROP_PADDING:
++		g_value_set_int (value, toplevel->priv->padding);
++		break;
+ 	case PROP_ORIENTATION:
+ 		g_value_set_enum (value, toplevel->priv->orientation);
+ 		break;
+@@ -4118,6 +4126,18 @@ panel_toplevel_class_init (PanelToplevel
+ 
+ 	g_object_class_install_property (
+ 		gobject_class,
++		PROP_PADDING,
++		g_param_spec_int (
++			"padding",
++			"Padding",
++			"Padding that is inserted between objects",
++			0,
++                        G_MAXINT,
++                        0,
++			G_PARAM_READWRITE | G_PARAM_CONSTRUCT));
++
++	g_object_class_install_property (
++		gobject_class,
+ 		PROP_ORIENTATION,
+ 		g_param_spec_enum (
+ 			"orientation",
+@@ -4698,6 +4718,30 @@ panel_toplevel_get_expand (PanelToplevel
+ 	return toplevel->priv->expand;
+ }
+ 
++void
++panel_toplevel_set_padding (PanelToplevel *toplevel,
++                            int            padding)
++{
++	g_return_if_fail (PANEL_IS_TOPLEVEL (toplevel));
++
++	if (toplevel->priv->padding == padding)
++		return;
++
++	toplevel->priv->padding = padding;
++
++	gtk_widget_queue_resize (GTK_WIDGET (toplevel));
++
++	g_object_notify (G_OBJECT (toplevel), "padding");
++}
++
++int
++panel_toplevel_get_padding (PanelToplevel *toplevel)
++{
++	g_return_val_if_fail (PANEL_IS_TOPLEVEL (toplevel), 0);
++
++	return toplevel->priv->padding;
++}
++
+ gboolean
+ panel_toplevel_get_is_floating (PanelToplevel *toplevel)
+ {
+diff -up mate-panel-1.1.1/mate-panel/panel-toplevel.h.panel-padding mate-panel-1.1.1/mate-panel/panel-toplevel.h
+--- mate-panel-1.1.1/mate-panel/panel-toplevel.h.panel-padding	2009-08-19 11:28:09.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-toplevel.h	2009-10-29 09:57:25.288484940 -0400
+@@ -83,6 +83,9 @@ G_CONST_RETURN char *panel_toplevel_get_
+ void                 panel_toplevel_set_expand             (PanelToplevel       *toplevel,
+ 							    gboolean             expand);
+ gboolean             panel_toplevel_get_expand             (PanelToplevel       *toplevel);
++void                 panel_toplevel_set_padding            (PanelToplevel       *toplevel,
++                                                            int                  padding);
++int                  panel_toplevel_get_padding            (PanelToplevel       *toplevel);
+ void                 panel_toplevel_set_orientation        (PanelToplevel       *toplevel,
+ 							    PanelOrientation     orientation);
+ PanelOrientation     panel_toplevel_get_orientation        (PanelToplevel       *toplevel);
+diff -up mate-panel-1.1.1/mate-panel/panel-toplevel.schemas.in.panel-padding mate-panel-1.1.1/mate-panel/panel-toplevel.schemas.in
+--- mate-panel-1.1.1/mate-panel/panel-toplevel.schemas.in.panel-padding	2009-07-01 09:06:23.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-toplevel.schemas.in	2009-10-29 09:57:25.288484940 -0400
+@@ -103,6 +103,19 @@
+     </schema>
+  
+     <schema>
++      <key>/schemas/apps/panel/toplevels/padding</key>
++      <owner>panel</owner>
++      <type>int</type>
++      <default>0</default>
++      <locale name="C">
++        <short>Padding</short>
++        <long>
++          Padding that will be inserted between objects on this panel.
++        </long>
++      </locale>
++    </schema>
++ 
++    <schema>
+       <key>/schemas/apps/panel/toplevels/x</key>
+       <owner>panel</owner>
+       <type>int</type>
+diff -up mate-panel-1.1.1/mate-panel/panel-widget.c.panel-padding mate-panel-1.1.1/mate-panel/panel-widget.c
+--- mate-panel-1.1.1/mate-panel/panel-widget.c.panel-padding	2009-08-11 07:32:38.000000000 -0400
++++ mate-panel-1.1.1/mate-panel/panel-widget.c	2009-10-29 10:10:43.531226534 -0400
+@@ -710,9 +710,12 @@ panel_widget_switch_applet_right (PanelW
+ {
+ 	AppletData *ad;
+ 	AppletData *nad = NULL;
+-	
++	gint padding;
++
+ 	g_assert (list != NULL);
+ 
++	padding = panel_toplevel_get_padding (panel->toplevel);
++
+ 	ad = list->data;
+ 	if (ad->constrained + ad->min_cells >= panel->size)
+ 		return;
+@@ -720,8 +723,8 @@ panel_widget_switch_applet_right (PanelW
+ 	if (list->next)
+ 		nad = list->next->data;
+ 
+-	if (!nad || nad->constrained >= ad->constrained + ad->min_cells + MOVE_INCREMENT) {
+-		ad->pos = ad->constrained += MOVE_INCREMENT;
++	if (!nad || nad->constrained >= ad->constrained + ad->min_cells + MOVE_INCREMENT + padding) {
++		ad->pos = ad->constrained += MOVE_INCREMENT + padding;
+ 		gtk_widget_queue_resize (GTK_WIDGET (panel));
+ 		emit_applet_moved (panel, ad);
+ 		return;
+@@ -786,6 +789,9 @@ panel_widget_switch_applet_left (PanelWi
+ {
+ 	AppletData *ad;
+ 	AppletData *pad = NULL;
++	gint padding;
++
++	padding = panel_toplevel_get_padding (panel->toplevel);
+ 
+ 	ad = list->data;
+ 	if (ad->constrained <= 0)
+@@ -794,8 +800,8 @@ panel_widget_switch_applet_left (PanelWi
+ 	if (list->prev)
+ 		pad = list->prev->data;
+ 
+-	if (!pad || pad->constrained + pad->min_cells <= ad->constrained - MOVE_INCREMENT) {
+-		ad->pos = ad->constrained -= MOVE_INCREMENT;
++	if (!pad || pad->constrained + pad->min_cells <= ad->constrained - MOVE_INCREMENT - padding) {
++		ad->pos = ad->constrained -= MOVE_INCREMENT + padding;
+ 		gtk_widget_queue_resize (GTK_WIDGET (panel));
+ 		emit_applet_moved (panel, ad);
+ 		return;
+@@ -874,15 +880,18 @@ panel_widget_get_right_switch_pos (Panel
+ {
+ 	AppletData *ad;
+ 	AppletData *nad = NULL;
++	gint padding;
+ 
+ 	g_assert (list != NULL);
+ 
++	padding = panel_toplevel_get_padding (panel->toplevel);
++
+ 	ad = list->data;
+ 	if (list->next)
+ 		nad = list->next->data;
+ 
+-	if (!nad || nad->constrained >= ad->constrained + ad->min_cells + MOVE_INCREMENT)
+-		return ad->constrained + MOVE_INCREMENT;
++	if (!nad || nad->constrained >= ad->constrained + ad->min_cells + MOVE_INCREMENT + padding)
++		return ad->constrained + MOVE_INCREMENT + padding;
+ 
+ 	if (nad->locked)
+ 		return panel_widget_get_right_jump_pos (panel,
+@@ -948,15 +957,18 @@ panel_widget_get_left_switch_pos (PanelW
+ {
+ 	AppletData *ad;
+ 	AppletData *pad = NULL;
++	gint padding;
+ 
+ 	g_assert (list != NULL);
+ 
++	padding = panel_toplevel_get_padding (panel->toplevel);
++
+ 	ad = list->data;
+ 	if (list->prev)
+ 		pad = list->prev->data;
+ 	
+-	if (!pad || pad->constrained + pad->min_cells <= ad->constrained - MOVE_INCREMENT)
+-		return ad->constrained - MOVE_INCREMENT;
++	if (!pad || pad->constrained + pad->min_cells <= ad->constrained - MOVE_INCREMENT - padding)
++		return ad->constrained - MOVE_INCREMENT - padding;
+ 
+ 	if (pad->locked)
+ 		return panel_widget_get_left_jump_pos (panel,
+@@ -1195,12 +1207,15 @@ panel_widget_size_request(GtkWidget *wid
+ 	GList *list;
+ 	GList *ad_with_hints;
+ 	gboolean dont_fill;
++        gint padding;
+ 
+ 	g_return_if_fail(PANEL_IS_WIDGET(widget));
+ 	g_return_if_fail(requisition!=NULL);
+ 
+ 	panel = PANEL_WIDGET(widget);
+ 
++	padding = panel_toplevel_get_padding (panel->toplevel);
++
+ 	if(panel->orient == GTK_ORIENTATION_HORIZONTAL) {
+ 		requisition->width = 0;
+ 		requisition->height = panel->sz;
+@@ -1224,8 +1239,11 @@ panel_widget_size_request(GtkWidget *wid
+ 				ad_with_hints = g_list_prepend (ad_with_hints,
+ 								ad);
+ 
+-			else if (panel->packed)
++			else if (panel->packed) {
++				if (list != panel->applet_list)
++					requisition->width += padding;
+ 				requisition->width += chreq.width;
++			}
+ 		} else {
+ 			if (requisition->width < chreq.width && !ad->size_constrained)
+ 				requisition->width = chreq.width;
+@@ -1234,8 +1252,11 @@ panel_widget_size_request(GtkWidget *wid
+ 				ad_with_hints = g_list_prepend (ad_with_hints,
+ 								ad);
+ 
+-			else if (panel->packed)
++			else if (panel->packed) {
++				if (list != panel->applet_list)
++					requisition->height += padding;
+ 				requisition->height += chreq.height;
++			}
+ 		}
+ 	}
+ 
+@@ -1333,12 +1354,15 @@ panel_widget_size_allocate(GtkWidget *wi
+ 	int i;
+ 	int old_size;
+ 	gboolean ltr;
++	gint padding;
+ 
+ 	g_return_if_fail(PANEL_IS_WIDGET(widget));
+ 	g_return_if_fail(allocation!=NULL);
+ 
+ 	panel = PANEL_WIDGET(widget);
+ 
++	padding = panel_toplevel_get_padding (panel->toplevel);
++
+ 	old_size = panel->size;
+ 	ltr = gtk_widget_get_direction (widget) == GTK_TEXT_DIR_LTR;
+ 	
+@@ -1404,7 +1428,7 @@ panel_widget_size_allocate(GtkWidget *wi
+ 			}
+ 			ad->min_cells  = ad->cells;
+ 			gtk_widget_size_allocate(ad->applet,&challoc);
+-			i += ad->cells;
++			i += ad->cells + padding;
+ 		}
+ 
+ 		/* EEEEK, there might be not enough room and we don't handle
+@@ -1439,7 +1463,7 @@ panel_widget_size_allocate(GtkWidget *wi
+ 			if (ad->constrained < i)
+ 				ad->constrained = i;
+ 
+-			i = ad->constrained + ad->cells;
++			i = ad->constrained + ad->cells + padding;
+ 		}
+ 
+ 		/* Now expand from the right */
+@@ -1464,7 +1488,7 @@ panel_widget_size_allocate(GtkWidget *wi
+ 				ad->cells = cells;
+ 			}
+ 
+-			i = ad->constrained;
++			i = ad->constrained - padding;
+ 		}
+ 
+ 		/* EEEEK, there's not enough room, so shift applets even

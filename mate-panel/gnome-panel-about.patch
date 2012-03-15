@@ -1,0 +1,13 @@
+diff -up mate-panel-2.27.91/mate-panel/panel-menu-items.c.about mate-panel-2.27.91/mate-panel/panel-menu-items.c
+--- mate-panel-2.27.91/mate-panel/panel-menu-items.c.about	2009-08-25 13:32:12.101272238 -0400
++++ mate-panel-2.27.91/mate-panel/panel-menu-items.c	2009-08-25 14:08:21.444015913 -0400
+@@ -1170,7 +1170,8 @@ panel_desktop_menu_item_append_menu (Gtk
+ 		add_menu_separator (menu);
+ 
+ 	panel_menu_items_append_from_desktop (menu, "mate-yelp.desktop", NULL, FALSE);
+-	panel_menu_items_append_from_desktop (menu, "mate-about.desktop", NULL, FALSE);
++	if (panel_has_desktop_file ("about-this-computer.desktop"))
++		panel_menu_items_append_from_desktop (menu, "about-this-computer.desktop", NULL, FALSE);
+ 
+ 	if (parent->priv->append_lock_logout)
+ 		panel_menu_items_append_lock_logout (menu);

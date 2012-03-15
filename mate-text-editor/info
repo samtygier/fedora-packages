@@ -1,0 +1,6 @@
+In fedora mate-text-editor called pluma!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to pluma-<version>
+-- compress the new source to tar.xz
+-- build the rpm with pluma.spec

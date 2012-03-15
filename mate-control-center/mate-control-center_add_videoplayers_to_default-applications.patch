@@ -1,0 +1,34 @@
+diff -upr mate-control-center-1.1.0-orig/capplets/default-applications/mate-default-applications.xml.in mate-control-center-1.1.0/capplets/default-applications/mate-default-applications.xml.in
+--- mate-control-center-1.1.0-orig/capplets/default-applications/mate-default-applications.xml.in	2011-12-10 21:58:24.000000000 +0100
++++ mate-control-center-1.1.0/capplets/default-applications/mate-default-applications.xml.in	2012-03-05 18:36:42.589151596 +0100
+@@ -550,6 +550,30 @@
+ 			<run-in-terminal>false</run-in-terminal>
+ 		</video-player>
+ 
++		<video-player>
++			<_name>Idol Movie Player</_name>
++			<executable>idol</executable>
++			<command>idol</command>
++			<icon-name>idol</icon-name>
++			<run-in-terminal>false</run-in-terminal>
++		</video-player>
++
++		<video-player>
++			<_name>Smplayer Movie Player</_name>
++			<executable>smplayer</executable>
++			<command>smplayer</command>
++			<icon-name>kaffeine</icon-name>
++			<run-in-terminal>false</run-in-terminal>
++		</video-player>
++
++		<video-player>
++			<_name>Kaffeine Movie Player</_name>
++			<executable>kaffeine</executable>
++			<command>kaffeine</command>
++			<icon-name>idol</icon-name>
++			<run-in-terminal>false</run-in-terminal>
++		</video-player>
++
+ 	</video-players>
+ 
+ 	<text-editors>

@@ -1,0 +1,30 @@
+diff -up mate-panel-2.27.91/mate-panel/panel-menu-items.c.vendor mate-panel-2.27.91/mate-panel/panel-menu-items.c
+--- mate-panel-2.27.91/mate-panel/panel-menu-items.c.vendor	2009-08-19 15:59:57.000000000 -0400
++++ mate-panel-2.27.91/mate-panel/panel-menu-items.c	2009-08-25 11:32:39.980266025 -0400
+@@ -1038,7 +1038,7 @@ panel_place_menu_item_create_menu (Panel
+ 					      COMPUTER_NAME_KEY,
+ 					      NULL);
+ 	panel_menu_items_append_from_desktop (places_menu,
+-					      "caja-computer.desktop",
++					      "mate-caja-computer.desktop",
+ 					      mateconf_name,
+                                               TRUE);
+ 	if (mateconf_name)
+@@ -1048,7 +1048,7 @@ panel_place_menu_item_create_menu (Panel
+ 	add_menu_separator (places_menu);
+ 
+ 	panel_menu_items_append_from_desktop (places_menu,
+-					      "network-scheme.desktop",
++					      "mate-network-scheme.desktop",
+ 					      NULL,
+                                               TRUE);
+ 	panel_place_menu_item_append_remote_gio (place_item, places_menu);
+@@ -1157,7 +1157,7 @@ panel_desktop_menu_item_append_menu (Gtk
+ 	if (add_separator)
+ 		add_menu_separator (menu);
+ 
+-	panel_menu_items_append_from_desktop (menu, "yelp.desktop", NULL, FALSE);
++	panel_menu_items_append_from_desktop (menu, "mate-yelp.desktop", NULL, FALSE);
+ 	panel_menu_items_append_from_desktop (menu, "mate-about.desktop", NULL, FALSE);
+ 
+ 	if (parent->priv->append_lock_logout)

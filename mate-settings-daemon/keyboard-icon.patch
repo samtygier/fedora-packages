@@ -1,0 +1,11 @@
+diff -up mate-settings-daemon-2.30.1/plugins/keyboard/msd-keyboard-xkb.c.keyboard-icon mate-settings-daemon-2.30.1/plugins/keyboard/msd-keyboard-xkb.c
+--- mate-settings-daemon-2.30.1/plugins/keyboard/msd-keyboard-xkb.c.keyboard-icon	2010-04-26 08:18:50.000000000 -0400
++++ mate-settings-daemon-2.30.1/plugins/keyboard/msd-keyboard-xkb.c	2010-04-26 20:00:30.655778596 -0400
+@@ -462,6 +462,7 @@ show_hide_icon ()
+ 
+ 			xkl_debug (150, "Creating new icon\n");
+ 			icon = matekbd_status_new ();
++                        gtk_status_icon_set_name (icon, "keyboard");
+ 			g_signal_connect (icon, "popup-menu",
+ 					  G_CALLBACK
+ 					  (status_icon_popup_menu_cb),

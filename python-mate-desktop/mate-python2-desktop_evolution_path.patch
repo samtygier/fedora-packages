@@ -1,0 +1,22 @@
+diff -upr mate-python2-desktop-1.2.0-orig/evolution/Makefile.am mate-python2-desktop-1.2.0/evolution/Makefile.am
+--- mate-python2-desktop-1.2.0-orig/evolution/Makefile.am	2012-03-09 15:50:08.000000000 +0100
++++ mate-python2-desktop-1.2.0/evolution/Makefile.am	2012-03-12 11:50:50.000000000 +0100
+@@ -1,6 +1,6 @@
+ INCLUDES = $(PYTHON_INCLUDES)
+ 
+-defsdir = $(datadir)/pygtk/2.0/defs
++defsdir = $(datadir)/pygtk/2.0/defs/mate
+ 
+ defs_DATA = ebook.defs
+ 
+@@ -8,8 +8,8 @@ if BUILD_EVOLUTION_ECAL
+ 	defs_DATA += ecal.defs
+ endif
+ 
+-pkgpythondir = $(pyexecdir)/gtk-2.0/evolution
+-pkgpyexecdir = $(pyexecdir)/gtk-2.0/evolution
++pkgpythondir = $(pyexecdir)/gtk-2.0/mate-evolution
++pkgpyexecdir = $(pyexecdir)/gtk-2.0/mate-evolution
+ 
+ pkgpyexec_LTLIBRARIES = ebook.la
+ pkgpyexec_DATA = __init__.py

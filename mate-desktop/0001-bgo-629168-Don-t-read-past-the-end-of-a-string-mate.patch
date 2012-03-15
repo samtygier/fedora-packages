@@ -1,0 +1,11 @@
+--- mate-desktop-1.1.0/libmate-desktop/display-name.c.orig	2011-12-09 17:02:56.000000000 +0100
++++ mate-desktop-1.1.0/libmate-desktop/display-name.c	2012-02-18 16:19:05.527986564 +0100
+@@ -209,7 +209,7 @@ static void read_pnp_ids(void)
+ 		{
+ 			 line = lines[i];
+ 
+-			 if (line[3] == '\t')
++			 if (line[0] && line[1] && line[2] && line[3] == '\t' && line[4])
+ 			 {
+ 				 code = line;
+ 				 line[3] = '\0';

@@ -1,0 +1,11 @@
+--- mate-panel-1.1.1/applets/fish/fish.schemas.in.speak-to-us-ye-old-wise-fish	2005-04-25 06:52:48.000000000 -0400
++++ mate-panel-1.1.1/applets/fish/fish.schemas.in	2005-04-25 06:53:13.000000000 -0400
+@@ -34,7 +34,7 @@
+         <key>/schemas/apps/fish_applet/prefs/command</key>
+         <owner>fish-applet</owner>
+         <type>string</type>
+-        <default>fortune</default>
++        <default>ddate</default>
+         <locale name="C">
+           <short>Command to execute on click</short>
+           <long>

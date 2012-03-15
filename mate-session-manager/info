@@ -1,0 +1,6 @@
+In fedora mate-session-manager called mate-session!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to mate-session-<version>
+-- compress the new source to tar.xz
+-- build the rpm with mate-session.spec

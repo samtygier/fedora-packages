@@ -1,0 +1,161 @@
+diff -upr mate-backgrounds-1.2.0-orig/abstract/Makefile.am mate-backgrounds-1.2.0/abstract/Makefile.am
+--- mate-backgrounds-1.2.0-orig/abstract/Makefile.am	2012-02-29 15:05:53.000000000 +0100
++++ mate-backgrounds-1.2.0/abstract/Makefile.am	2012-03-05 14:29:40.000000000 +0100
+@@ -1,4 +1,4 @@
+-backgrounddir = $(datadir)/pixmaps/backgrounds/mate/abstract
++backgrounddir = $(datadir)/backgrounds/mate/abstract
+ 
+ background_DATA = \
+ 	Arc-Colors-Transparent-Wallpaper.png \
+diff -upr mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in mate-backgrounds-1.2.0/abstract/mate-abstract.xml.in.in
+--- mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in	2012-02-29 15:05:53.000000000 +0100
++++ mate-backgrounds-1.2.0/abstract/mate-abstract.xml.in.in	2012-03-05 14:28:51.000000000 +0100
+@@ -4,7 +4,7 @@
+ 	<wallpaper deleted="false">
+ 		<!-- From http://code.google.com/p/gnome-colors/ -->
+ 		<_name>Arc</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Arc-Colors-Transparent-Wallpaper.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Arc-Colors-Transparent-Wallpaper.png</filename>
+ 		<options>zoom</options>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#234C88</pcolor>
+@@ -12,7 +12,7 @@
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Flow</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Flow.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Flow.png</filename>
+ 		<options>zoom</options>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#415b69</pcolor>
+@@ -20,14 +20,14 @@
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Gulp</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Gulp.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Gulp.png</filename>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#3a5990</pcolor>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Silk</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Silk.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Silk.png</filename>
+ 		<shade_type>horizontal-gradient</shade_type>
+ 		<pcolor>#FF920E</pcolor>
+ 		<scolor>#EABC12</scolor>
+@@ -35,21 +35,21 @@
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Spring</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Spring.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Spring.png</filename>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#66BA00</pcolor>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Waves</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/Waves.png</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/Waves.png</filename>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#1166AA</pcolor>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Stripes</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/stripes.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/abstract/stripes.jpg</filename>
+ 		<shade_type>solid</shade_type>
+ 		<pcolor>#234C88</pcolor>
+ 		<options>zoom</options>
+diff -upr mate-backgrounds-1.2.0-orig/nature/Makefile.am mate-backgrounds-1.2.0/nature/Makefile.am
+--- mate-backgrounds-1.2.0-orig/nature/Makefile.am	2012-02-29 15:05:53.000000000 +0100
++++ mate-backgrounds-1.2.0/nature/Makefile.am	2012-03-05 14:30:13.000000000 +0100
+@@ -1,4 +1,4 @@
+-backgrounddir = $(datadir)/pixmaps/backgrounds/mate/nature
++backgrounddir = $(datadir)/backgrounds/mate/nature
+ 
+ background_DATA =\
+ 	Aqua.jpg \
+diff -upr mate-backgrounds-1.2.0-orig/nature/mate-nature.xml.in.in mate-backgrounds-1.2.0/nature/mate-nature.xml.in.in
+--- mate-backgrounds-1.2.0-orig/nature/mate-nature.xml.in.in	2012-02-29 15:05:53.000000000 +0100
++++ mate-backgrounds-1.2.0/nature/mate-nature.xml.in.in	2012-03-05 14:31:24.000000000 +0100
+@@ -5,64 +5,64 @@
+ 	<!-- Translators: This is the name of a desktop background image that shows an orange/red flower.
+ 		You might want to translate it into the equivalent words of your language  -->
+ 		<_name>Fresh Flower</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/FreshFlower.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/FreshFlower.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<!-- Translators: This is the name of a desktop background image that shows a green meadow.
+ 		  You might want to translate it into the equivalent words of your language  -->
+ 		<_name>Green Meadow</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/GreenMeadow.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/GreenMeadow.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Aqua</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Aqua.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Aqua.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Dune</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Dune.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Dune.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Storm</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Storm.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Storm.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Two Wings</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/TwoWings.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/TwoWings.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Lady Bird</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/LadyBird.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/LadyBird.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Blinds</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Blinds.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Blinds.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Rain Drops</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/RainDrops.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/RainDrops.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Yellow Flower</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/YellowFlower.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/YellowFlower.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Garden</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Garden.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Garden.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ 	<wallpaper deleted="false">
+ 		<_name>Wood</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/nature/Wood.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/nature/Wood.jpg</filename>
+ 		<options>zoom</options>
+ 	</wallpaper>
+ </wallpapers>

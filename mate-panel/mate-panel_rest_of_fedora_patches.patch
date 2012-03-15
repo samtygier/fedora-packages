@@ -1,0 +1,54 @@
+diff -upr mate-panel-1.1.1-orig/mate-panel/launcher.h mate-panel-1.1.1/mate-panel/launcher.h
+--- mate-panel-1.1.1-orig/mate-panel/launcher.h	2012-01-19 13:37:14.000000000 +0100
++++ mate-panel-1.1.1/mate-panel/launcher.h	2012-03-01 01:35:20.000000000 +0100
+@@ -13,6 +13,7 @@
+ 
+ #include "applet.h"
+ #include "panel-widget.h"
++#include <gio/gio.h>
+ 
+ #ifdef __cplusplus
+ extern "C" {
+@@ -71,6 +72,7 @@ void            launcher_properties_dest
+ 
+ void            panel_launcher_set_dnd_enabled  (Launcher *launcher,
+ 						 gboolean  dnd_enabled);
++void            panel_preferred_apps_init       (void);
+ 
+ 
+ #ifdef __cplusplus
+diff -upr mate-panel-1.1.1-orig/mate-panel/main.c mate-panel-1.1.1/mate-panel/main.c
+--- mate-panel-1.1.1-orig/mate-panel/main.c	2012-01-19 13:37:14.000000000 +0100
++++ mate-panel-1.1.1/mate-panel/main.c	2012-03-01 02:06:40.000000000 +0100
+@@ -30,6 +30,7 @@
+ #include "panel-action-protocol.h"
+ #include "panel-lockdown.h"
+ #include "panel-icon-names.h"
++#include "launcher.h"
+ #include "panel-reset.h"
+ #include "xstuff.h"
+ 
+diff -upr mate-panel-1.1.1-orig/mate-panel/panel-run-dialog.c mate-panel-1.1.1/mate-panel/panel-run-dialog.c
+--- mate-panel-1.1.1-orig/mate-panel/panel-run-dialog.c	2012-01-19 13:37:14.000000000 +0100
++++ mate-panel-1.1.1/mate-panel/panel-run-dialog.c	2012-03-01 02:12:37.000000000 +0100
+@@ -858,7 +858,7 @@ get_all_applications_from_dir (MateMenuT
+ 	return list;
+ }
+ 
+-static GSList* get_all_applications(void)
++GSList* get_all_applications(void)
+ {
+ 	MateMenuTree* tree;
+ 	MateMenuTreeDirectory* root;
+diff -upr mate-panel-1.1.1-orig/mate-panel/panel-run-dialog.h mate-panel-1.1.1/mate-panel/panel-run-dialog.h
+--- mate-panel-1.1.1-orig/mate-panel/panel-run-dialog.h	2012-01-19 13:37:14.000000000 +0100
++++ mate-panel-1.1.1/mate-panel/panel-run-dialog.h	2012-03-01 01:46:42.000000000 +0100
+@@ -34,6 +34,8 @@ extern "C" {
+ void panel_run_dialog_present           (GdkScreen  *screen,
+ 					 guint32    activate_time);
+ 
++GSList *get_all_applications           (void);
++
+ #ifdef __cplusplus
+ }
+ #endif

@@ -1,0 +1,14 @@
+diff -up mate-session-2.32.0/mate-session/Makefile.am.cflags mate-session-2.32.0/mate-session/Makefile.am
+--- mate-session-2.32.0/mate-session/Makefile.am.cflags	2010-09-30 08:19:16.757603002 -0400
++++ mate-session-2.32.0/mate-session/Makefile.am	2010-09-30 08:19:50.708603005 -0400
+@@ -80,6 +80,10 @@ mate_session_LDADD =				\
+ 	$(MATECONF_LIBS)				\
+ 	$(EXECINFO_LIBS)
+ 
++libgsmutil_la_CFLAGS =				\
++	$(AM_CPPFLAGS)				\
++	$(MATECONF_CFLAGS)
++
+ libgsmutil_la_SOURCES =				\
+ 	gsm-util.c				\
+ 	gsm-util.h

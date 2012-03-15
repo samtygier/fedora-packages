@@ -1,0 +1,22 @@
+diff -up mate-keyring-1.1.0/pam/gkr-pam-module.c.nopass mate-keyring-1.1.0/pam/gkr-pam-module.c
+--- mate-keyring-1.1.0/pam/gkr-pam-module.c.nopass	2009-09-25 21:55:50.000000000 -0400
++++ mate-keyring-1.1.0/pam/gkr-pam-module.c	2009-10-19 11:27:34.000000000 -0400
+@@ -878,6 +878,7 @@ pam_sm_authenticate (pam_handle_t *ph, i
+ 
+ 	started_daemon = 0;
+ 
++
+ 	/* Should we start the daemon? */
+ 	if (args & ARG_AUTO_START) {
+ 		ret = start_daemon_if_necessary (ph, pwd, password, &started_daemon);
+@@ -944,8 +945,9 @@ pam_sm_open_session (pam_handle_t *ph, i
+ 		 * different PAM callbacks from different processes.
+ 		 * 
+ 		 * No use complaining
++		 * Do not start mate-keyring, dbus will start it on login.
+ 		 */
+-		password = NULL;
++		return PAM_SUCCESS;
+ 	}
+ 	
+ 	started_daemon = 0;

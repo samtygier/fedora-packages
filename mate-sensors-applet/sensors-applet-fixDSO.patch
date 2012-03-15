@@ -1,0 +1,11 @@
+--- mate-sensors-applet-1.1.1/sensors-applet/Makefile.in	2012-02-21 17:10:04.634333373 +0100
++++ mate-sensors-applet-1.1.1/sensors-applet/Makefile.in.fixdso	2012-02-21 17:23:39.576386833 +0100
+@@ -76,7 +76,7 @@ LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIB
+ 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+ CCLD = $(CC)
+ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
++	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) -ldl \
+ 	$(LDFLAGS) -o $@
+ SOURCES = $(mate_sensors_applet_SOURCES)
+ DIST_SOURCES = $(am__mate_sensors_applet_SOURCES_DIST)

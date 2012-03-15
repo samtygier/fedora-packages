@@ -1,0 +1,18 @@
+diff -upr mate-control-center-1.1.0-orig/capplets/default-applications/mate-default-applications.xml.in mate-control-center-1.1.0/capplets/default-applications/mate-default-applications.xml.in
+--- mate-control-center-1.1.0-orig/capplets/default-applications/mate-default-applications.xml.in	2011-12-10 21:58:24.000000000 +0100
++++ mate-control-center-1.1.0/capplets/default-applications/mate-default-applications.xml.in	2012-03-05 18:28:31.104638751 +0100
+@@ -529,6 +529,14 @@
+ 			<run-in-terminal>false</run-in-terminal>
+ 		</music-player>
+ 
++		<music-player>
++			<_name>Audacious</_name>
++			<executable>audacious</executable>
++			<command>audacious</command>
++			<icon-name>audacious</icon-name>
++			<run-in-terminal>false</run-in-terminal>
++		</music-player>
++
+ 		<!-- se necesita agregar los otros reproductores de musica -->
+ 	</music-players>
+ 

@@ -1,0 +1,6 @@
+In fedora python-mate called mate-python2!
+-- download source from http://pub.mate-desktop.org/releases
+-- extract the source
+-- rename the extract source to mate-python2-<version>
+-- compress the new source to tar.xz
+-- build the rpm with mate-python2.spec

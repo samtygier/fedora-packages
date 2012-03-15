@@ -1,0 +1,17 @@
+diff -up mate-panel-1.1.1/applets/clock/calendar-client.c.allow-spurious-view-done-signals mate-panel-1.1.1/applets/clock/calendar-client.c
+--- mate-panel-1.1.1/applets/clock/calendar-client.c.allow-spurious-view-done-signals	2008-02-26 08:17:49.000000000 -0500
++++ mate-panel-1.1.1/applets/clock/calendar-client.c	2008-03-03 10:22:57.000000000 -0500
+@@ -1217,6 +1217,13 @@ calendar_client_handle_query_completed (
+ {
+   CalendarClientQuery *query;
+ 
++  if (!source->query_in_progress)
++    {
++      g_warning ("Got spurious 'view-done' signal from calendar backend for query %p\n",
++                 &source->completed_query);
++      return;
++    }
++
+   query = goddamn_this_is_crack (source, view, NULL);
+   
+   dprintf ("Query %p completed: %s\n", query, e_cal_get_error_message (status));

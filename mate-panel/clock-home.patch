@@ -1,0 +1,21 @@
+diff -up mate-panel-1.1.1/applets/clock/clock.schemas.in.clock-home mate-panel-1.1.1/applets/clock/clock.schemas.in
+--- mate-panel-1.1.1/applets/clock/clock.schemas.in.clock-home	2009-07-01 09:06:23.000000000 -0400
++++ mate-panel-1.1.1/applets/clock/clock.schemas.in	2009-10-07 22:36:12.298466938 -0400
+@@ -211,7 +211,7 @@
+         <key>/schemas/apps/clock_applet/prefs/expand_locations</key>
+         <owner>clock-applet</owner>
+         <type>bool</type>
+-        <default>false</default>
++        <default>true</default>
+         <locale name="C">
+           <short>Expand list of locations</short>
+           <long>
+@@ -271,7 +271,7 @@
+         <owner>clock-applet</owner>
+         <type>list</type>
+         <list_type>string</list_type>
+-        <default>[]</default>
++        <default>[&lt;location name=&quot;&quot; city=&quot;Boston&quot; timezone=&quot;America/New_York&quot; latitude=&quot;42.360558&quot; longitude=&quot;-71.010559&quot; code=&quot;KBOS&quot; current=&quot;true&quot;/&gt;]</default>
+         <locale name="C">
+           <short>List of locations</short>
+           <long>
