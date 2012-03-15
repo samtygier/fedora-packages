@@ -1,4 +1,3 @@
-
 Summary: 		MATE base GUI library
 Name: 			libmateui
 Version: 		1.2.0
@@ -115,4 +114,3 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.24.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
-
