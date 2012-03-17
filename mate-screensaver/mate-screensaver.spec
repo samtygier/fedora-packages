@@ -17,8 +17,8 @@ Version: 	1.2.0
 Release: 	2%{?dist}
 License: 	GPLv2+
 Group: 		Amusements/Graphics
-Source0: 	%{name}-%{version}.tar.gz
-URL: 		https://github.com/mate-desktop/mate-screensaver
+Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
+URL: 		http://pub.mate-desktop.org
 
 Patch1: gnome-screensaver-2.20.0-default-theme.patch
 #Patch2: gnome-screensaver-2.26.0-securitytoken.patch
@@ -55,7 +55,7 @@ Requires(post): mate-conf >= %{mate_conf_version}
 Requires: redhat-menus >= %{redhat_menus_version}
 Requires: system-logos
 # since we use it, and pam spams the log if a module is missing
-Requires: gnome-keyring-pam
+#Requires: mate-keyring-pam
 #Requires: fedora-screensaver-theme
 Conflicts: xscreensaver < 1:5.00-19
 
@@ -142,7 +142,7 @@ fi
 
 %changelog
 * Sat Mar 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-2
-- test build for switching to gnome-keyring
+- remove mate-keyring dependencies
 
 * Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2
