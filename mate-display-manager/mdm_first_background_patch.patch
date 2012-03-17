@@ -1,0 +1,12 @@
+diff -upr mdm-1.1.1-orig/data/session-setup.entries mdm-1.1.1/data/session-setup.entries
+--- mdm-1.1.1-orig/data/session-setup.entries	2012-02-07 20:47:06.000000000 +0100
++++ mdm-1.1.1/data/session-setup.entries	2012-03-10 19:55:48.000000000 +0100
+@@ -3,7 +3,7 @@
+     <entry>
+       <key>/apps/caja/preferences/show_desktop</key>
+       <value>
+-        <bool>false</bool>
++        <bool>true</bool>
+       </value>
+     </entry>
+     <entry>

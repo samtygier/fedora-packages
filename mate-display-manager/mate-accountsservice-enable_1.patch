@@ -1,0 +1,70 @@
+--- mdm-1.1.0/gui/simple-greeter/mdm-user.c.orig	2012-01-05 22:01:53.000000000 +0100
++++ mdm-1.1.0/gui/simple-greeter/mdm-user.c	2012-02-06 19:23:53.744225398 +0100
+@@ -42,8 +42,8 @@
+ #define GLOBAL_FACEDIR    DATADIR "/faces"
+ #define MAX_FILE_SIZE     65536
+ 
+-#define ACCOUNTS_NAME           "org.freedesktop.Accounts"
+-#define ACCOUNTS_USER_INTERFACE "org.freedesktop.Accounts.User"
++#define ACCOUNTS_NAME           "org.freedesktop.MateAccounts"
++#define ACCOUNTS_USER_INTERFACE "org.freedesktop.MateAccounts.User"
+ 
+ enum {
+         PROP_0,
+@@ -60,7 +60,7 @@
+         GObject         parent;
+ 
+         DBusGConnection *connection;
+-        DBusGProxy      *accounts_proxy;
++        DBusGProxy      *mateaccounts_proxy;
+         DBusGProxy      *object_proxy;
+         DBusGProxyCall  *get_all_call;
+         char            *object_path;
+@@ -247,8 +247,8 @@
+         g_free (user->icon_file);
+         g_free (user->object_path);
+ 
+-        if (user->accounts_proxy != NULL) {
+-                g_object_unref (user->accounts_proxy);
++        if (user->mateaccounts_proxy != NULL) {
++                g_object_unref (user->mateaccounts_proxy);
+         }
+ 
+         if (user->object_proxy != NULL) {
+@@ -865,7 +865,7 @@
+  * mdm_user_get_object_path:
+  * @user: a #MdmUser
+  *
+- * Returns the user accounts service object path of @user,
++ * Returns the user mateaccounts service object path of @user,
+  * or %NULL if @user doesn't have an object path associated
+  * with it.
+  *
+@@ -1051,7 +1051,7 @@
+  * @user: the user object to update.
+  * @object_path: the object path of the user to use.
+  *
+- * Updates the properties of @user from the accounts service via
++ * Updates the properties of @user from the mateaccounts service via
+  * the object path in @object_path.
+  **/
+ void
+@@ -1064,14 +1064,14 @@
+ 
+         user->object_path = g_strdup (object_path);
+ 
+-        user->accounts_proxy = dbus_g_proxy_new_for_name (user->connection,
++        user->mateaccounts_proxy = dbus_g_proxy_new_for_name (user->connection,
+                                                           ACCOUNTS_NAME,
+                                                           user->object_path,
+                                                           ACCOUNTS_USER_INTERFACE);
+-        dbus_g_proxy_set_default_timeout (user->accounts_proxy, INT_MAX);
+-        dbus_g_proxy_add_signal (user->accounts_proxy, "Changed", G_TYPE_INVALID);
++        dbus_g_proxy_set_default_timeout (user->mateaccounts_proxy, INT_MAX);
++        dbus_g_proxy_add_signal (user->mateaccounts_proxy, "Changed", G_TYPE_INVALID);
+ 
+-        dbus_g_proxy_connect_signal (user->accounts_proxy, "Changed",
++        dbus_g_proxy_connect_signal (user->mateaccounts_proxy, "Changed",
+                                      G_CALLBACK (changed_handler), user, NULL);
+ 
+         if (!update_info (user)) {

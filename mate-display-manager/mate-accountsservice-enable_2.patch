@@ -1,0 +1,207 @@
+--- mdm-1.1.0/gui/simple-greeter/mdm-user-manager.c.orig	2012-01-05 22:01:53.000000000 +0100
++++ mdm-1.1.0/gui/simple-greeter/mdm-user-manager.c	2012-02-06 19:21:54.305118043 +0100
+@@ -80,9 +80,9 @@
+ /* approximately two months */
+ #define LOGIN_FREQUENCY_TIME_WINDOW_SECS (60 * 24 * 60 * 60)
+ 
+-#define ACCOUNTS_NAME      "org.freedesktop.Accounts"
++#define ACCOUNTS_NAME      "org.freedesktop.MateAccounts"
+ #define ACCOUNTS_PATH      "/org/freedesktop/Accounts"
+-#define ACCOUNTS_INTERFACE "org.freedesktop.Accounts"
++#define ACCOUNTS_INTERFACE "org.freedesktop.MateAccounts"
+ 
+ typedef enum {
+         MDM_USER_MANAGER_SEAT_STATE_UNLOADED = 0,
+@@ -134,7 +134,7 @@
+ typedef enum {
+         MDM_USER_MANAGER_GET_USER_STATE_UNFETCHED = 0,
+         MDM_USER_MANAGER_GET_USER_STATE_WAIT_FOR_LOADED,
+-        MDM_USER_MANAGER_GET_USER_STATE_ASK_ACCOUNTS_SERVICE,
++        MDM_USER_MANAGER_GET_USER_STATE_ASK_MATEACCOUNTS_SERVICE,
+         MDM_USER_MANAGER_GET_USER_STATE_FETCHED
+ } MdmUserManagerGetUserState;
+ 
+@@ -157,7 +157,7 @@
+         GHashTable            *shells;
+         DBusGConnection       *connection;
+         DBusGProxyCall        *get_sessions_call;
+-        DBusGProxy            *accounts_proxy;
++        DBusGProxy            *mateaccounts_proxy;
+ 
+         MdmUserManagerSeat     seat;
+ 
+@@ -864,7 +864,7 @@
+ }
+ 
+ static void
+-on_new_user_in_accounts_service (DBusGProxy *proxy,
++on_new_user_in_mateaccounts_service (DBusGProxy *proxy,
+                                  const char *object_path,
+                                  gpointer    user_data)
+ {
+@@ -874,7 +874,7 @@
+ }
+ 
+ static void
+-on_user_removed_in_accounts_service (DBusGProxy *proxy,
++on_user_removed_in_mateaccounts_service (DBusGProxy *proxy,
+                                      const char *object_path,
+                                      gpointer    user_data)
+ {
+@@ -1101,7 +1101,7 @@
+         error = NULL;
+         object_path = NULL;
+         manager = request->manager;
+-        res = dbus_g_proxy_end_call (manager->priv->accounts_proxy,
++        res = dbus_g_proxy_end_call (manager->priv->mateaccounts_proxy,
+                                      call,
+                                      &error,
+                                      DBUS_TYPE_G_OBJECT_PATH,
+@@ -1129,17 +1129,17 @@
+ }
+ 
+ static void
+-find_user_in_accounts_service (MdmUserManager                 *manager,
++find_user_in_mateaccounts_service (MdmUserManager                 *manager,
+                                MdmUserManagerFetchUserRequest *request)
+ {
+         DBusGProxyCall  *call;
+ 
+-        g_debug ("MdmUserManager: Looking for user %s in accounts service",
++        g_debug ("MdmUserManager: Looking for user %s in mateaccounts service",
+                  request->username);
+ 
+-        g_assert (manager->priv->accounts_proxy != NULL);
++        g_assert (manager->priv->mateaccounts_proxy != NULL);
+ 
+-        call = dbus_g_proxy_begin_call (manager->priv->accounts_proxy,
++        call = dbus_g_proxy_begin_call (manager->priv->mateaccounts_proxy,
+                                         "FindUserByName",
+                                         (DBusGProxyCallNotify)
+                                         on_find_user_by_name_finished,
+@@ -1190,8 +1190,8 @@
+                 g_debug ("MdmUserManager: ListCachedUsers failed: %s", error->message);
+                 g_error_free (error);
+ 
+-                g_object_unref (manager->priv->accounts_proxy);
+-                manager->priv->accounts_proxy = NULL;
++                g_object_unref (manager->priv->mateaccounts_proxy);
++                manager->priv->mateaccounts_proxy = NULL;
+ 
+                 load_users_manually (manager);
+ 
+@@ -1546,19 +1546,19 @@
+ }
+ 
+ static void
+-get_accounts_proxy (MdmUserManager *manager)
++get_mateaccounts_proxy (MdmUserManager *manager)
+ {
+         DBusGProxy      *proxy;
+         GError          *error;
+ 
+-        g_assert (manager->priv->accounts_proxy == NULL);
++        g_assert (manager->priv->mateaccounts_proxy == NULL);
+ 
+         error = NULL;
+         proxy = dbus_g_proxy_new_for_name (manager->priv->connection,
+                                            ACCOUNTS_NAME,
+                                            ACCOUNTS_PATH,
+                                            ACCOUNTS_INTERFACE);
+-        manager->priv->accounts_proxy = proxy;
++        manager->priv->mateaccounts_proxy = proxy;
+ 
+         dbus_g_proxy_add_signal (proxy,
+                                  "UserAdded",
+@@ -1571,12 +1571,12 @@
+ 
+         dbus_g_proxy_connect_signal (proxy,
+                                      "UserAdded",
+-                                     G_CALLBACK (on_new_user_in_accounts_service),
++                                     G_CALLBACK (on_new_user_in_mateaccounts_service),
+                                      manager,
+                                      NULL);
+         dbus_g_proxy_connect_signal (proxy,
+                                      "UserDeleted",
+-                                     G_CALLBACK (on_user_removed_in_accounts_service),
++                                     G_CALLBACK (on_user_removed_in_mateaccounts_service),
+                                      manager,
+                                      NULL);
+ }
+@@ -1622,7 +1622,7 @@
+                                 MdmUserManagerFetchUserRequest *request)
+ {
+ 
+-        g_debug ("MdmUserManager: account service unavailable, "
++        g_debug ("MdmUserManager: mateaccount service unavailable, "
+                  "fetching user %s locally",
+                  request->username);
+         fetch_user_locally (manager, request->user, request->username);
+@@ -1666,11 +1666,11 @@
+                 }
+                 break;
+ 
+-        case MDM_USER_MANAGER_GET_USER_STATE_ASK_ACCOUNTS_SERVICE:
+-                if (manager->priv->accounts_proxy == NULL) {
++        case MDM_USER_MANAGER_GET_USER_STATE_ASK_MATEACCOUNTS_SERVICE:
++                if (manager->priv->mateaccounts_proxy == NULL) {
+                         give_up_and_fetch_user_locally (manager, request);
+                 } else {
+-                        find_user_in_accounts_service (manager, request);
++                        find_user_in_mateaccounts_service (manager, request);
+                 }
+                 break;
+         case MDM_USER_MANAGER_GET_USER_STATE_FETCHED:
+@@ -1693,7 +1693,7 @@
+ }
+ 
+ static void
+-fetch_user_from_accounts_service (MdmUserManager *manager,
++fetch_user_from_mateaccounts_service (MdmUserManager *manager,
+                                   MdmUser        *user,
+                                   const char     *username)
+ {
+@@ -1752,8 +1752,8 @@
+         if (user == NULL) {
+                 user = create_new_user (manager);
+ 
+-                if (manager->priv->accounts_proxy != NULL) {
+-                        fetch_user_from_accounts_service (manager, user, username);
++                if (manager->priv->mateaccounts_proxy != NULL) {
++                        fetch_user_from_mateaccounts_service (manager, user, username);
+                 } else {
+                         fetch_user_locally (manager, user, username);
+                 }
+@@ -2570,10 +2570,10 @@
+ static void
+ load_users (MdmUserManager *manager)
+ {
+-        g_assert (manager->priv->accounts_proxy != NULL);
++        g_assert (manager->priv->mateaccounts_proxy != NULL);
+         g_debug ("MdmUserManager: calling 'ListCachedUsers'");
+ 
+-        dbus_g_proxy_begin_call (manager->priv->accounts_proxy,
++        dbus_g_proxy_begin_call (manager->priv->mateaccounts_proxy,
+                                  "ListCachedUsers",
+                                  on_list_cached_users_finished,
+                                  manager,
+@@ -2953,7 +2953,7 @@
+                 return;
+         }
+ 
+-        get_accounts_proxy (manager);
++        get_mateaccounts_proxy (manager);
+ 
+         manager->priv->seat.state = MDM_USER_MANAGER_SEAT_STATE_UNLOADED;
+ }
+@@ -3014,8 +3014,8 @@
+                 g_object_unref (manager->priv->seat.proxy);
+         }
+ 
+-        if (manager->priv->accounts_proxy != NULL) {
+-                g_object_unref (manager->priv->accounts_proxy);
++        if (manager->priv->mateaccounts_proxy != NULL) {
++                g_object_unref (manager->priv->mateaccounts_proxy);
+         }
+ 
+         if (manager->priv->ck_history_id != 0) {
