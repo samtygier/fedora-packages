@@ -3,7 +3,7 @@
 
 Summary: 		libmate component system
 Name: 			libmatecomponent
-Version: 		1.2.0
+Version: 		1.2.1
 Release: 		1%{?dist}
 URL: 			http://mate-desktop.org
 Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
@@ -101,6 +101,9 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/matecomponent/servers
 %{_datadir}/gtk-doc/html/matecomponent-activation/*
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
@@ -112,3 +115,4 @@ mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/matecomponent/servers
 
 * Mon Apr  4 2011 Tomas Bzatek <tbzatek@redhat.com> - 2.32.1-1
 - Update to 2.32.1
+

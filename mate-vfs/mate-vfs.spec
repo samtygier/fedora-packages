@@ -9,7 +9,7 @@
 
 Summary: 	The MATE virtual file-system libraries
 Name: 		mate-vfs
-Version: 	1.2.0
+Version: 	1.2.1
 Release: 	1%{?dist}
 License: 	LGPLv2+ and GPLv2+
 		# the daemon and the library are LGPLv2+
@@ -236,6 +236,9 @@ fi
 %config %{_sysconfdir}/mate-vfs-2.0/modules/smb-module.conf
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 

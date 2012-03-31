@@ -11,7 +11,7 @@
 
 Summary:        MATE media programs
 Name:           mate-media
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 License:        GPLv2+ and GFDL
 Group:          Applications/Multimedia
@@ -179,6 +179,9 @@ gtk-update-icon-cache --quiet %{_datadir}/icons/mate >&/dev/null || :
 
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 

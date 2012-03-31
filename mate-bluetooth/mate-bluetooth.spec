@@ -1,5 +1,5 @@
 Name:		mate-bluetooth
-Version:	1.2.0
+Version:	1.2.1
 Release:	1%{?dist}
 Summary:	Bluetooth graphical utilities
 
@@ -242,6 +242,9 @@ fi
 #%{_datadir}/mutter-moblin/panels/bluetooth-panel.desktop
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0
 

@@ -17,7 +17,7 @@
 
 Summary: 	Utilities to configure the Mate desktop
 Name: 		mate-control-center
-Version: 	1.2.0
+Version: 	1.2.1
 Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		User Interface/Desktops
@@ -255,6 +255,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 

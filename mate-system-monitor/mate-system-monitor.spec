@@ -10,12 +10,12 @@
 
 Summary: 	Process and resource monitor
 Name: 		mate-system-monitor
-Version: 	1.2.0
+Version: 	1.2.1
 Release: 	1%{?dist}
 License: 	GPLv2+
 Group: 		Applications/System
-URL: 		https://github.com/mate-desktop/mate-system-monitor
-Source: 	%{name}-%{version}.tar.gz
+URL: 		http://pub.mate-desktop.org
+Source: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 BuildRequires: mate-conf-devel
 BuildRequires: mate-vfs-devel
@@ -38,17 +38,6 @@ BuildRequires: dbus-glib-devel
 # needed for autoreconf
 BuildRequires: autoconf, automake, libtool
 
-# sent upstream: http://bugzilla.gnome.org/show_bug.cgi?id=491462
-#Patch0: polkit.patch
-
-# sent upstream: http://bugzilla.gnome.org/show_bug.cgi?id=421912
-#Patch1: session.patch
-
-# http://bugzilla.gnome.org/show_bug.cgi?id=592758
-Patch2: memmapsdialog.patch
-
-Patch3: mate-system-monitor_glib2-2.31.patch
-
 Requires(pre): mate-conf >= %{mate_conf_version}
 Requires(post): mate-conf >= %{mate_conf_version}
 Requires(preun): mate-conf >= %{mate_conf_version}
@@ -61,10 +50,6 @@ such as CPU and memory.
 %prep
 %setup -q
 NOCONFIGURE=1 ./autogen.sh
-#%patch0 -p1 -b .polkit
-#%patch1 -p1 -b .session
-%patch2 -p1 -b .memmapsdialog
-%patch3 -p1 -b .mate-system-monitor_glib2-2.31
 
 autoreconf -i -f
 
@@ -137,6 +122,9 @@ fi
 %{_datadir}/omf/mate-system-monitor/
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Thu Mar 08 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2
 

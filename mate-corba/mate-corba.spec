@@ -3,12 +3,12 @@
 
 Summary: 		A high-performance CORBA Object Request Broker
 Name: 			mate-corba
-Version: 		1.2.1
+Version: 		1.2.2
 Release: 		1%{?dist}
-Source: 		%{name}-%{version}.tar.gz
+Source: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Group: 			System Environment/Daemons
 License: 		LGPLv2+ and GPLv2+
-URL: 			https://github.com/mate-desktop/mate-corba
+URL: 			http://pub.mate-desktop.org
 BuildRequires: 	libIDL-devel >= %{libidl_version}
 BuildRequires: 	glib2-devel >= %{glib2_version}
 BuildRequires: 	pkgconfig >= 0.14
@@ -139,6 +139,9 @@ EOF
 %{_datadir}/gtk-doc
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.2-1
+- update to 1.2.2
+
 * Thu Mar 01 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
 -update verion to 1.2
 

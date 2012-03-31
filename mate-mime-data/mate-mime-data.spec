@@ -1,6 +1,6 @@
 Summary: 		MIME type data files for MATE desktop
 Name: 			mate-mime-data
-Version: 		1.2.0
+Version: 		1.2.1
 Release: 		1%{?dist}
 URL: 			http://mate-desktop.org
 Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
@@ -53,6 +53,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/pkgconfig/*
 
 %changelog
+* Tue Mar 27 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+
 * Fri Mar 09 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to 1.2.0 version
 
