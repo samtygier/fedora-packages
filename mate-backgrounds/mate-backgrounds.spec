@@ -1,11 +1,11 @@
 Summary: 		Desktop backgrounds packaged with the MATE desktop
 Name: 			mate-backgrounds
-Version: 		1.2.0
+Version: 		1.2.1
 Release: 		1%{?dist}
 License: 		GPLv2
 Group: 			Applications/Multimedia
-URL: 			https://github.com/mate-desktop/mate-backgrounds
-Source0: 		%{name}-%{version}.tar.gz
+URL: 			http://pub.mate-desktop.org
+Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Patch0: 		mate-backgrounds_change_backgrounds_path.patch
 BuildArch: 		noarch
 BuildRequires: 	intltool
@@ -48,6 +48,10 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/locale/*
 
 %changelog
+* Fri Apr 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to 1.2.1
+- first mate background is added
+
 * Wed Feb 29 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2
 

@@ -1,15 +1,15 @@
-diff -upr mate-backgrounds-1.2.0-orig/abstract/Makefile.am mate-backgrounds-1.2.0/abstract/Makefile.am
---- mate-backgrounds-1.2.0-orig/abstract/Makefile.am	2012-02-29 15:05:53.000000000 +0100
-+++ mate-backgrounds-1.2.0/abstract/Makefile.am	2012-03-05 14:29:40.000000000 +0100
+diff -upr mate-backgrounds-1.2.1-orig/abstract/Makefile.am mate-backgrounds-1.2.1/abstract/Makefile.am
+--- mate-backgrounds-1.2.1-orig/abstract/Makefile.am	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/abstract/Makefile.am	2012-04-06 22:54:29.000000000 +0200
 @@ -1,4 +1,4 @@
 -backgrounddir = $(datadir)/pixmaps/backgrounds/mate/abstract
 +backgrounddir = $(datadir)/backgrounds/mate/abstract
  
  background_DATA = \
  	Arc-Colors-Transparent-Wallpaper.png \
-diff -upr mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in mate-backgrounds-1.2.0/abstract/mate-abstract.xml.in.in
---- mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in	2012-02-29 15:05:53.000000000 +0100
-+++ mate-backgrounds-1.2.0/abstract/mate-abstract.xml.in.in	2012-03-05 14:28:51.000000000 +0100
+diff -upr mate-backgrounds-1.2.1-orig/abstract/mate-abstract.xml.in.in mate-backgrounds-1.2.1/abstract/mate-abstract.xml.in.in
+--- mate-backgrounds-1.2.1-orig/abstract/mate-abstract.xml.in.in	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/abstract/mate-abstract.xml.in.in	2012-04-06 22:55:24.000000000 +0200
 @@ -4,7 +4,7 @@
  	<wallpaper deleted="false">
  		<!-- From http://code.google.com/p/gnome-colors/ -->
@@ -45,7 +45,7 @@ diff -upr mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in mate-back
  		<shade_type>horizontal-gradient</shade_type>
  		<pcolor>#FF920E</pcolor>
  		<scolor>#EABC12</scolor>
-@@ -35,21 +35,21 @@
+@@ -35,14 +35,14 @@
  	</wallpaper>
  	<wallpaper deleted="false">
  		<_name>Spring</_name>
@@ -62,26 +62,45 @@ diff -upr mate-backgrounds-1.2.0-orig/abstract/mate-abstract.xml.in.in mate-back
  		<shade_type>solid</shade_type>
  		<pcolor>#1166AA</pcolor>
  		<options>zoom</options>
+diff -upr mate-backgrounds-1.2.1-orig/desktop/Makefile.am mate-backgrounds-1.2.1/desktop/Makefile.am
+--- mate-backgrounds-1.2.1-orig/desktop/Makefile.am	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/desktop/Makefile.am	2012-04-06 23:02:35.357032230 +0200
+@@ -1,4 +1,4 @@
+-backgrounddir = $(datadir)/pixmaps/backgrounds/mate/desktop
++backgrounddir = $(datadir)/backgrounds/mate/desktop
+ 
+ background_DATA =\
+ 	GreenTraditional.jpg \
+diff -upr mate-backgrounds-1.2.1-orig/desktop/mate-desktop.xml.in.in mate-backgrounds-1.2.1/desktop/mate-desktop.xml.in.in
+--- mate-backgrounds-1.2.1-orig/desktop/mate-desktop.xml.in.in	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/desktop/mate-desktop.xml.in.in	2012-04-06 23:02:58.586269681 +0200
+@@ -3,12 +3,12 @@
+ <wallpapers>
+ 	<wallpaper deleted="false">
+ 		<_name>Green Traditional</_name>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/desktop/GreenTraditional.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/desktop/GreenTraditional.jpg</filename>
+ 		<options>zoom</options>
  	</wallpaper>
  	<wallpaper deleted="false">
  		<_name>Stripes</_name>
--		<filename>@datadir@/pixmaps/backgrounds/mate/abstract/stripes.jpg</filename>
-+		<filename>@datadir@/backgrounds/mate/abstract/stripes.jpg</filename>
- 		<shade_type>solid</shade_type>
- 		<pcolor>#234C88</pcolor>
+-		<filename>@datadir@/pixmaps/backgrounds/mate/desktop/Stripes.jpg</filename>
++		<filename>@datadir@/backgrounds/mate/desktop/Stripes.jpg</filename>
  		<options>zoom</options>
-diff -upr mate-backgrounds-1.2.0-orig/nature/Makefile.am mate-backgrounds-1.2.0/nature/Makefile.am
---- mate-backgrounds-1.2.0-orig/nature/Makefile.am	2012-02-29 15:05:53.000000000 +0100
-+++ mate-backgrounds-1.2.0/nature/Makefile.am	2012-03-05 14:30:13.000000000 +0100
+ 	</wallpaper>
+ </wallpapers>
+diff -upr mate-backgrounds-1.2.1-orig/nature/Makefile.am mate-backgrounds-1.2.1/nature/Makefile.am
+--- mate-backgrounds-1.2.1-orig/nature/Makefile.am	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/nature/Makefile.am	2012-04-06 22:55:51.000000000 +0200
 @@ -1,4 +1,4 @@
 -backgrounddir = $(datadir)/pixmaps/backgrounds/mate/nature
 +backgrounddir = $(datadir)/backgrounds/mate/nature
  
  background_DATA =\
  	Aqua.jpg \
-diff -upr mate-backgrounds-1.2.0-orig/nature/mate-nature.xml.in.in mate-backgrounds-1.2.0/nature/mate-nature.xml.in.in
---- mate-backgrounds-1.2.0-orig/nature/mate-nature.xml.in.in	2012-02-29 15:05:53.000000000 +0100
-+++ mate-backgrounds-1.2.0/nature/mate-nature.xml.in.in	2012-03-05 14:31:24.000000000 +0100
+diff -upr mate-backgrounds-1.2.1-orig/nature/mate-nature.xml.in.in mate-backgrounds-1.2.1/nature/mate-nature.xml.in.in
+--- mate-backgrounds-1.2.1-orig/nature/mate-nature.xml.in.in	2012-03-29 12:23:12.000000000 +0200
++++ mate-backgrounds-1.2.1/nature/mate-nature.xml.in.in	2012-04-06 22:57:15.000000000 +0200
 @@ -5,64 +5,64 @@
  	<!-- Translators: This is the name of a desktop background image that shows an orange/red flower.
  		You might want to translate it into the equivalent words of your language  -->
