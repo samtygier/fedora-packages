@@ -6,7 +6,7 @@
 
 Summary: 	Framework for managing passwords and other secrets
 Name: 		mate-keyring
-Version: 	1.2.1
+Version: 	1.2.0
 Release: 	1%{?dist}
 License: 	GPLv2+ and LGPLv2+
 Group: 		System Environment/Libraries
@@ -145,10 +145,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas
 
 
 %changelog
-* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
-- update to version 1.2.1
-
-* Tue Feb 28 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
+* Thu Mar 15 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
 * Thu Feb 23 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.0-4
