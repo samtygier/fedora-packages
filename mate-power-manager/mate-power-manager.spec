@@ -1,6 +1,6 @@
 Summary: 	MATE power management service
 Name: 		mate-power-manager
-Version: 	1.2.0
+Version: 	1.2.1
 Release: 	1%{?dist}
 License: 	GPLv2+ and GFDL
 Group: 		Applications/System
@@ -155,6 +155,9 @@ update-desktop-database %{_datadir}/applications &> /dev/null || :
 
 
 %changelog
+* Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
+- update to version 1.2.1
+
 * Wed Mar 14 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.0-1
 - update to version 1.2.0
 
