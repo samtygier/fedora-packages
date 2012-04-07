@@ -15,15 +15,12 @@
 %define dbus_glib_version 0.60
 %define mate_doc_utils_version 1.1.0
 %define libmateweather_version 1.1.0
-%define evolution_data_server_version 1.9.1
-
-%define use_evolution_data_server 0
 
 
 Summary: 			MATE panel
 Name: 				mate-panel
 Version: 			1.2.1
-Release: 			1%{?dist}
+Release: 			2%{?dist}
 URL: 				http://pub.mate-desktop.org
 Source0: 			http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Source3: 			redhat-panel-default-setup.entries
@@ -36,9 +33,6 @@ Group: 				User Interface/Desktops
 Requires: 			mate-desktop >= %{mate_desktop_version}
 Requires: 			libwnck >= %{libwnck_version}
 Requires: 			mate-menus >= %{mate_menus_version}
-%if %{use_evolution_data_server}
-Requires: evolution-data-server >= %{evolution_data_server_version}
-%endif
 Requires: 			mate-session-xsession
 Requires: 			%{name}-libs = %{version}-%{release}
 
@@ -82,11 +76,8 @@ BuildRequires: 		intltool
 BuildRequires: 		gettext-devel
 BuildRequires: 		libtool
 BuildRequires: 		libcanberra-devel
-%if %{use_evolution_data_server}
-BuildRequires:		evolution-data-server-devel >= %{evolution_data_server_version}
 BuildRequires: 		mate-corba-devel >= %{mate_corba_version}}
 BuildRequires:		dbus-devel >= %{dbus_version}
-%endif
 
 BuildRequires: 		mate-common
 BuildRequires: 		gobject-introspection-devel
@@ -177,16 +168,11 @@ NOCONFIGURE=1 ./autogen.sh
 
 %configure \
 	--disable-static \
-	--with-in-process-applets=all \
+	--enable-introspection \
 	--enable-matecomponent \
 	--disable-scrollkeeper \
-	--enable-gtk-doc \
-	--enable-network-manager \
-%if %{use_evolution_data_server}
-   --enable-eds=yes
-%else
-   --enable-eds=no
-%endif
+	--libexecdir=%{_libexecdir}/mate-panel \
+	--enable-network-manager
 
 # drop unneeded direct library deps with --as-needed
 # libtool doesn't make this easy, so we do it the hard way
@@ -315,13 +301,17 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor >&/dev/null || :
 %{_datadir}/applications/mate-panel.desktop
 %{_bindir}/mate-panel
 %{_bindir}/mate-desktop-item-edit
-%{_libexecdir}/*
+%{_libexecdir}/mate-panel/*
 %{_sysconfdir}/mateconf/schemas/*.schemas
 %{_sysconfdir}/mateconf/schemas/*.entries
 %{_libdir}/mate-panel
 %{_libdir}/girepository-1.0/MatePanelApplet-3.0.typelib
 %{_datadir}/mate/help/*
 %{_datadir}/omf/*
+%{_datadir}/dbus-1/services/org.mate.panel.applet.ClockAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.FishAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.NotificationAreaAppletFactory.service
+%{_datadir}/dbus-1/services/org.mate.panel.applet.WnckletFactory.service
 
 %files libs
 %{_libdir}/*.so.*
@@ -339,6 +329,11 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor >&/dev/null || :
 
 
 %changelog
+* Sat Mar 31 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-2
+- enable introspection
+- fix issue https://github.com/mate-desktop/mate-panel/issues/7
+- move libexecdir to %{_libexecdir}/mate-panel
+
 * Tue Mar 13 2012 Wolfgang Ulbrich <info@raveit.de> - 1.2.1-1
 - update to version 1.2.1
 

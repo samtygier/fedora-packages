@@ -1,0 +1,12 @@
+diff -upr mdm-1.1.1-orig/data/Init.in mdm-1.1.1/data/Init.in
+--- mdm-1.1.1-orig/data/Init.in	2012-02-07 20:46:51.000000000 +0100
++++ mdm-1.1.1/data/Init.in	2012-04-06 13:01:28.000000000 +0200
+@@ -85,5 +85,7 @@ if [ "x$SETXKBMAP" != "x" ] ; then
+     fi
+   fi
+ fi
+-
++if [ -x /usr/bin/numlockx ]; then
++/usr/bin/numlockx on
++fi
+ exit 0

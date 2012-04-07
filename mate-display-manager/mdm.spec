@@ -20,7 +20,7 @@
 Summary: 	The MATE Display Manager
 Name: 		mdm
 Version: 	1.1.1
-Release: 	4%{?dist}
+Release: 	6%{?dist}
 License: 	GPLv2+
 Group: 		User Interface/X
 URL: 		https://github.com/mate-desktop/mate-display-manager
@@ -49,11 +49,12 @@ Requires: iso-codes
 Requires: mate-session
 Requires: mate-polkit
 # since we use it, and pam spams the log if the module is missing
-Requires: gnome-keyring-pam
+Requires: mate-keyring-pam
 #Requires: plymouth-gdm-hooks
 #Requires: pulseaudio-gdm-hooks
 # We need 1.0.4-5 since it lets us use "localhost" in auth cookies
 Requires: libXau >= 1.0.4-4
+Requires: numlockx
 
 BuildRequires: dbus-glib-devel >= %{DBUS_GLIB_REQUIRED_VERSION}
 BuildRequires: glib-devel >= %{GLIB_REQUIRED_VERSION}
@@ -101,7 +102,11 @@ Patch99: gdm-2.23.1-fedora-logo.patch
 # change to mate-accountsservice
 Patch101: mate-accountsservice-enable_1.patch
 Patch102: mate-accountsservice-enable_2.patch
+
 Patch103: mdm_first_background_patch.patch
+
+#numlock
+Patch104: mdm_numlock_on.patch
 
 %package user-switch-applet
 Summary:   MDM User Switcher Panel Applet
@@ -146,6 +151,7 @@ The MDM fingerprint plugin provides functionality necessary to use a fingerprint
 %patch101 -p1 -b .mate-accountsservice-enable_1
 %patch102 -p1 -b .mate-accountsservice-enable_2
 %patch103 -p1 -b .mdm_first_background_patch
+%patch104 -p1 -b .mdm_numlock_on
 NOCONFIGURE=1 ./autogen.sh
 
 
@@ -382,6 +388,12 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor >&/dev/ull || :
 
 
 %changelog
+* Fri Apr 06 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-6
+- add numlock patch
+
+* Sat Mar 25 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-5
+- remove gnome-keyring dependency
+
 * Sat Mar 10 2012 Wolfgang Ulbrich <info@raveit.de> - 1.1.1-4
 - add gnome-keyring to mdm pam files
 - add mdm_first_background_patch.patch
