@@ -1,0 +1,75 @@
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastHigh/index.theme.in mate-themes-1.2.0/desktop-themes/ContrastHigh/index.theme.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastHigh/index.theme.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastHigh/index.theme.in	2012-03-24 20:35:33.000000000 +0100
+@@ -7,4 +7,4 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastHigh
+ IconTheme=ContrastHigh
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastHighInverse/index.theme.in mate-themes-1.2.0/desktop-themes/ContrastHighInverse/index.theme.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastHighInverse/index.theme.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastHighInverse/index.theme.in	2012-03-24 20:36:11.000000000 +0100
+@@ -7,4 +7,4 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastHighInverse
+ IconTheme=ContrastHighInverse
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastHighLargePrint/index.theme.in.in mate-themes-1.2.0/desktop-themes/ContrastHighLargePrint/index.theme.in.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastHighLargePrint/index.theme.in.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastHighLargePrint/index.theme.in.in	2012-03-24 20:36:32.000000000 +0100
+@@ -7,7 +7,7 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastHighLargePrint
+ IconTheme=ContrastHigh
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+ ApplicationFont=@LARGEPRINT_FONT@
+ DocumentsFont=@LARGEPRINT_DOCUMENTS_FONT@
+ DesktopFont=@LARGEPRINT_DESKTOP_FONT@
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastHighLargePrintInverse/index.theme.in.in mate-themes-1.2.0/desktop-themes/ContrastHighLargePrintInverse/index.theme.in.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastHighLargePrintInverse/index.theme.in.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastHighLargePrintInverse/index.theme.in.in	2012-03-24 20:36:49.000000000 +0100
+@@ -7,7 +7,7 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastHighLargePrintInverse
+ IconTheme=ContrastHighLargePrintInverse
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+ ApplicationFont=@LARGEPRINT_FONT@
+ DocumentsFont=@LARGEPRINT_DOCUMENTS_FONT@
+ DesktopFont=@LARGEPRINT_DESKTOP_FONT@
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastLow/index.theme.in mate-themes-1.2.0/desktop-themes/ContrastLow/index.theme.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastLow/index.theme.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastLow/index.theme.in	2012-03-24 20:37:05.000000000 +0100
+@@ -7,4 +7,4 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastLow
+ IconTheme=mate
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+diff -upr mate-themes-1.2.0-orig/desktop-themes/ContrastLowLargePrint/index.theme.in.in mate-themes-1.2.0/desktop-themes/ContrastLowLargePrint/index.theme.in.in
+--- mate-themes-1.2.0-orig/desktop-themes/ContrastLowLargePrint/index.theme.in.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/ContrastLowLargePrint/index.theme.in.in	2012-03-24 20:37:26.000000000 +0100
+@@ -7,7 +7,7 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=ContrastLowLargePrint
+ IconTheme=mate
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+ ApplicationFont=@LARGEPRINT_FONT@
+ DesktopFont=@LARGEPRINT_DESKTOP_FONT@
+ MonospaceFont=@LARGEPRINT_MONOSPACE_FONT@
+diff -upr mate-themes-1.2.0-orig/desktop-themes/LargePrint/index.theme.in.in mate-themes-1.2.0/desktop-themes/LargePrint/index.theme.in.in
+--- mate-themes-1.2.0-orig/desktop-themes/LargePrint/index.theme.in.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/LargePrint/index.theme.in.in	2012-03-24 20:37:58.000000000 +0100
+@@ -7,7 +7,7 @@ Encoding=UTF-8
+ [X-GNOME-Metatheme]
+ GtkTheme=PrintLarge
+ IconTheme=PrintLarge
+-MetacityTheme=Atlanta
++MetacityTheme=Berlin
+ ApplicationFont=@LARGEPRINT_FONT@
+ DocumentsFont=@LARGEPRINT_DOCUMENTS_FONT@
+ DesktopFont=@LARGEPRINT_DESKTOP_FONT@

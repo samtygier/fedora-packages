@@ -1,0 +1,178 @@
+diff -upr mate-themes-1.2.0-orig/configure.in mate-themes-1.2.0/configure.in
+--- mate-themes-1.2.0-orig/configure.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/configure.in	2012-03-24 18:17:58.000000000 +0100
+@@ -190,7 +190,7 @@ desktop-themes/Aldabra/metacity-1/Makefi
+ desktop-themes/Quid/Makefile
+ desktop-themes/TraditionalOk/Makefile
+ desktop-themes/TraditionalOkTest/Makefile
+-desktop-themes/Glider/Makefile
++desktop-themes/Sailplane/Makefile
+ desktop-themes/Shiny/Makefile
+ desktop-themes/ContrastHigh/Makefile
+ desktop-themes/ContrastHighInverse/Makefile
+@@ -206,7 +206,7 @@ desktop-themes/ContrastLowLargePrint/ind
+ desktop-themes/Fog/Makefile
+ marco-themes/Makefile
+ gtk-themes/Makefile
+-gtk-themes/Glider/Makefile
++gtk-themes/Sailplane/Makefile
+ gtk-themes/Shiny/Makefile
+ gtk-themes/TraditionalOkClassic/Makefile
+ gtk-themes/TraditionalOkTest/Makefile
+diff -upr mate-themes-1.2.0-orig/desktop-themes/Makefile.am mate-themes-1.2.0/desktop-themes/Makefile.am
+--- mate-themes-1.2.0-orig/desktop-themes/Makefile.am	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/Makefile.am	2012-03-24 18:35:14.000000000 +0100
+@@ -2,7 +2,7 @@ SUBDIRS = \
+ 	Aldabra \
+ 	Quid \
+ 	TraditionalOk \
+-	Glider \
++	Sailplane \
+ 	Shiny \
+ 	ContrastHigh \
+ 	ContrastHighInverse \
+@@ -18,7 +18,7 @@ DIST_SUBDIRS = \
+ 	Aldabra \
+ 	Quid \
+ 	TraditionalOk \
+-	Glider \
++	Sailplane \
+ 	Shiny \
+ 	ContrastHigh \
+ 	ContrastHighInverse \
+diff -upr mate-themes-1.2.0-orig/desktop-themes/Quid/index.theme.in mate-themes-1.2.0/desktop-themes/Quid/index.theme.in
+--- mate-themes-1.2.0-orig/desktop-themes/Quid/index.theme.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/Quid/index.theme.in	2012-03-24 18:46:10.000000000 +0100
+@@ -4,5 +4,5 @@ Type=X-GNOME-Metatheme
+ _Comment=Smooth gradients with purple highlights
+ Encoding=UTF-8
+ GtkTheme=Crux
+-MetacityTheme=Glider
++MetacityTheme=Sailplane
+ IconTheme=Quid
+diff -upr mate-themes-1.2.0-orig/desktop-themes/Sailplane/index.theme.in mate-themes-1.2.0/desktop-themes/Sailplane/index.theme.in
+--- mate-themes-1.2.0-orig/desktop-themes/Sailplane/index.theme.in	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/Sailplane/index.theme.in	2012-03-24 18:24:19.000000000 +0100
+@@ -1,8 +1,8 @@
+ [X-GNOME-Metatheme]
+-_Name=Glider
++_Name=Sailplane
+ Type=X-GNOME-Metatheme
+ _Comment=Simple, smooth and aesthetically pleasing
+ Encoding=UTF-8
+-GtkTheme=Glider
+-MetacityTheme=Glider
++GtkTheme=Sailplane
++MetacityTheme=Sailplane
+ IconTheme=mate
+diff -upr mate-themes-1.2.0-orig/desktop-themes/Sailplane/Makefile.am mate-themes-1.2.0/desktop-themes/Sailplane/Makefile.am
+--- mate-themes-1.2.0-orig/desktop-themes/Sailplane/Makefile.am	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/desktop-themes/Sailplane/Makefile.am	2012-03-24 18:25:09.000000000 +0100
+@@ -1,4 +1,4 @@
+-THEME_NAME=Glider
++THEME_NAME=Sailplane
+ THEME_IN_FILES=index.theme.in
+  
+ %.theme:   %.theme.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; $(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+diff -upr mate-themes-1.2.0-orig/gtk-themes/Makefile.am mate-themes-1.2.0/gtk-themes/Makefile.am
+--- mate-themes-1.2.0-orig/gtk-themes/Makefile.am	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/gtk-themes/Makefile.am	2012-03-24 18:36:08.000000000 +0100
+@@ -1,5 +1,5 @@
+ SUBDIRS = \
+-	Glider \
++	Sailplane \
+ 	Shiny \
+ 	TraditionalOkClassic \
+ 	Simply \
+@@ -14,7 +14,7 @@ SUBDIRS = \
+ 	$(TEST_THEMES)
+ 
+ DIST_SUBDIRS = \
+-	Glider \
++	Sailplane \
+ 	Shiny \
+ 	TraditionalOkClassic \
+ 	Simply \
+diff -upr mate-themes-1.2.0-orig/gtk-themes/Sailplane/gtkrc mate-themes-1.2.0/gtk-themes/Sailplane/gtkrc
+--- mate-themes-1.2.0-orig/gtk-themes/Sailplane/gtkrc	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/gtk-themes/Sailplane/gtkrc	2012-03-24 18:15:13.000000000 +0100
+@@ -1,8 +1,8 @@
+-# Theme Name  : Glider
++# Theme Name  : Sailplane
+ # Author(s)   : Link Dupont <link@subpop.net>
+ # Description : A very basic, conservative theme, using the Smooth engine and
+ #               HIG colors.
+-#               This is Glider, the mate-themes version of SmoothMATE..
++#               This is Sailplane, the mate-themes version of SmoothMATE..
+ 
+ gtk_color_scheme = "fg_color:#000\nbg_color:#eae8e3\nbase_color:#fff\ntext_color:#000\nselected_bg_color:#7590ae\nselected_fg_color:#fff\ntooltip_bg_color:#FFF1BE\ntooltip_fg_color:#000"
+ 
+@@ -133,7 +133,7 @@ widget "*Ephy*Location*" style "ephybug"
+ # appears-as-list mode.
+ # This style does not affect GtkComboBoxEntry, it does have an effect
+ # on comboboxes in appears-as-list mode though.
+-style "glider-text-is-fg-color-workaround"
++style "sailplane-text-is-fg-color-workaround"
+ {
+ 	text[NORMAL]        = @fg_color
+ 	text[PRELIGHT]      = @fg_color
+@@ -141,9 +141,9 @@ style "glider-text-is-fg-color-workaroun
+ 	text[ACTIVE]        = @fg_color
+ 	text[INSENSITIVE]   = darker (@bg_color)
+ }
+-widget_class "*.<GtkComboBox>.<GtkCellView>"   style "glider-text-is-fg-color-workaround"
++widget_class "*.<GtkComboBox>.<GtkCellView>"   style "sailplane-text-is-fg-color-workaround"
+ 
+-style "glider-menuitem-text-is-fg-color-workaround"
++style "sailplane-menuitem-text-is-fg-color-workaround"
+ {
+ 	text[NORMAL]        = @fg_color
+ 	text[PRELIGHT]      = @selected_fg_color
+@@ -151,12 +151,12 @@ style "glider-menuitem-text-is-fg-color-
+ 	text[ACTIVE]        = @fg_color
+ 	text[INSENSITIVE]   = darker (@bg_color)
+ }
+-widget "*.gtk-combobox-popup-menu.*"   style "glider-menuitem-text-is-fg-color-workaround"
++widget "*.gtk-combobox-popup-menu.*"   style "sailplane-menuitem-text-is-fg-color-workaround"
+ 
+ # Work around the usage of GtkLabel inside GtkListItems to display text.
+ # This breaks because the label is shown on a background that is based on the
+ # base color set.
+-style "glider-fg-is-text-color-workaround"
++style "sailplane-fg-is-text-color-workaround"
+ {
+ 	fg[NORMAL]      = @text_color
+ 	fg[PRELIGHT]    = @text_color
+@@ -164,9 +164,9 @@ style "glider-fg-is-text-color-workaroun
+ 	fg[SELECTED]    = @selected_fg_color
+ 	fg[INSENSITIVE] = darker (@bg_color)
+ }
+-widget_class "*<GtkListItem>*" style "glider-fg-is-text-color-workaround"
++widget_class "*<GtkListItem>*" style "sailplane-fg-is-text-color-workaround"
+ # The same problem also exists for GtkCList and GtkCTree
+ # Only match GtkCList and not the parent widgets, because that would also change the headers.
+-widget_class "*<GtkCList>" style "glider-fg-is-text-color-workaround"
++widget_class "*<GtkCList>" style "sailplane-fg-is-text-color-workaround"
+ 
+ 
+diff -upr mate-themes-1.2.0-orig/gtk-themes/Sailplane/Makefile.am mate-themes-1.2.0/gtk-themes/Sailplane/Makefile.am
+--- mate-themes-1.2.0-orig/gtk-themes/Sailplane/Makefile.am	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/gtk-themes/Sailplane/Makefile.am	2012-03-24 18:15:49.000000000 +0100
+@@ -1,4 +1,4 @@
+-themedir = $(datadir)/themes/Glider/gtk-2.0
++themedir = $(datadir)/themes/Sailplane/gtk-2.0
+ 
+ theme_DATA = gtkrc
+ 
+diff -upr mate-themes-1.2.0-orig/marco-themes/Makefile.am mate-themes-1.2.0/marco-themes/Makefile.am
+--- mate-themes-1.2.0-orig/marco-themes/Makefile.am	2012-03-24 16:49:29.000000000 +0100
++++ mate-themes-1.2.0/marco-themes/Makefile.am	2012-03-24 18:36:47.000000000 +0100
+@@ -1,7 +1,7 @@
+ THEMES = \
+ 	TraditionalOk \
+ 	TraditionalOkClassic \
+-	Glider \
++	Sailplane \
+ 	Shiny \
+ 	Inverted \
+ 	Fog
