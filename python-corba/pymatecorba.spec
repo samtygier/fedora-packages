@@ -10,7 +10,7 @@ Group: 		Development/Languages
 Summary: 	Python bindings for Corba.
 BuildRoot: 	%{_tmppath}/%{name}-root
 URL: 		https://github.com/Perberos/Mate-Desktop-Environment
-Source0: 	%{name}-%{version}.tar.gz
+Source0: 	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
 
 ### Dependencies ###
 

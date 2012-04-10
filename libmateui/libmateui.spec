@@ -3,7 +3,7 @@ Name: 			libmateui
 Version: 		1.2.0
 Release: 		1%{?dist}
 URL: 			https://github.com/mate-desktop/libmateui
-Source0: 		%{name}-%{version}.tar.gz
+Source0: 		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 License: 		LGPLv2+
 Group: 			System Environment/Libraries
 

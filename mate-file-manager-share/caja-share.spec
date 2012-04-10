@@ -5,7 +5,7 @@ Summary:			Easy sharing folder via Samba (CIFS protocol)
 Group:				Applications/File
 License:			GPLv2+
 URL:				https://github.com/mate-desktop/mate-file-manager-share
-Source0:			%{name}-%{version}.tar.gz
+Source0:			http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.gz
 Source1:			caja-share-setup-instructions
 Source2:			caja-share-smb.conf.example
 BuildRoot:			%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

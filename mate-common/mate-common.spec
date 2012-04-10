@@ -7,7 +7,7 @@ Group:          Development/Tools
 BuildArch:      noarch
 License:        GPL
 URL: 			https://github.com/mate-desktop/mate-common
-Source0:        %{name}-%{version}.tar.gz
+Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # This will pull in the latest version; if your package requires something older,

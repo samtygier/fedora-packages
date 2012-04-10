@@ -6,7 +6,7 @@ Summary:        The daemon sharing settings from MATE to GTK+/KDE applications
 Group:          System Environment/Daemons
 License:        GPLv2+
 URL:            https://github.com/mate-desktop/mate-settings-daemon
-Source:         %{name}-%{version}.tar.gz
+Source:         http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 Requires(pre): 	mate-conf >= 1.1.0
 Requires(preun): mate-conf >= 1.1.0

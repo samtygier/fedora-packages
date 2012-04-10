@@ -8,7 +8,7 @@ Summary:        Menu editor for the MATE desktop
 Group:          Applications/System
 License:        LGPLv2+
 URL:            http://pub.mate-desktop.org
-Source0:        %{name}-%{version}.tar.xz
+Source0:        http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 
 Patch1:         mate-menu-editor-move-and_rename_directorys.patch
 

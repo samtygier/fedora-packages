@@ -8,7 +8,7 @@ Version: 		1.2.0
 Release: 		1%{?dist}
 License: 		GPLv2+ and LGPLv2+
 Group:   		System Environment/Libraries
-Source:  		%{name}-%{version}.tar.gz
+Source:  		http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 URL:     		https://github.com/mate-desktop/libmatekeyring
 
 # gkr_operation_block_and_unref(): assertion failed: (op->pending != pending)

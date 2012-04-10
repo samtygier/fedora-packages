@@ -10,7 +10,7 @@ Version:	1.2.1
 Release: 	1%{?dist}
 License:	LGPLv2+
 Group: 		System Environment/Base
-Source0:	%{name}-%{version}.tar.gz
+Source0:	http://pub.mate-desktop.org/releases/1.2/%{name}-%{version}.tar.xz
 Source1: 	macros.mateconf
 URL: 		https://github.com/mate-desktop/mate-conf
 
